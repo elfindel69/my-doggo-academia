@@ -5,7 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
 
+/**
+ *@ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ */
 class Annonceur extends Utilisateur
 {
     /**
