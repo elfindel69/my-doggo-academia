@@ -30,10 +30,15 @@ class Photo
     private ?string $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Chien::class, inversedBy="photos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Chien::class, mappedBy="photos")
      */
-    private ?Chien $chien;
+    private ArrayCollection $chiens;
+
+    public function __construct()
+    {
+        $this->chiens = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -64,15 +69,32 @@ class Photo
         return $this;
     }
 
-    public function getChien(): ?Chien
+    /**
+     * @return Collection|Chien[]
+     */
+    public function getChiens(): Collection
     {
-        return $this->chien;
+        return $this->chiens;
     }
 
-    public function setChien(?Chien $chien): self
+    public function addChien(Chien $chien): self
     {
-        $this->chien = $chien;
+        if (!$this->chiens->contains($chien)) {
+            $this->chiens[] = $chien;
+            $chien->addPhoto($this);
+        }
 
         return $this;
     }
+
+    public function removeChien(Chien $chien): self
+    {
+        if ($this->chiens->removeElement($chien)) {
+            $chien->removePhoto($this);
+        }
+
+        return $this;
+    }
+
+
 }

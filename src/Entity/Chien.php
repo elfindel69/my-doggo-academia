@@ -72,9 +72,10 @@ class Chien
     private ArrayCollection $races;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Photo::class, inversedBy="chiens")
      */
     private ArrayCollection $photos;
+
 
     public function __construct()
     {
@@ -232,7 +233,6 @@ class Chien
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
-            $photo->setChien($this);
         }
 
         return $this;
@@ -240,14 +240,10 @@ class Chien
 
     public function removePhoto(Photo $photo): self
     {
-        if ($this->photos->removeElement($photo)) {
-            // set the owning side to null (unless already changed)
-            if ($photo->getChien() === $this) {
-                $photo->setChien(null);
-            }
-        }
+        $this->photos->removeElement($photo);
 
         return $this;
     }
+
 
 }
