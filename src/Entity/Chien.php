@@ -39,10 +39,7 @@ class Chien
      */
     private ?float $poids;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private array $photos = [];
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -74,9 +71,15 @@ class Chien
      */
     private ArrayCollection $races;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true)
+     */
+    private ArrayCollection $photos;
+
     public function __construct()
     {
         $this->races = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
 
@@ -129,18 +132,6 @@ class Chien
     public function setPoids(float $poids): self
     {
         $this->poids = $poids;
-
-        return $this;
-    }
-
-    public function getPhotos(): ?array
-    {
-        return $this->photos;
-    }
-
-    public function setPhotos(?array $photos): self
-    {
-        $this->photos = $photos;
 
         return $this;
     }
@@ -229,5 +220,34 @@ class Chien
         return $this;
     }
 
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setChien($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getChien() === $this) {
+                $photo->setChien(null);
+            }
+        }
+
+        return $this;
+    }
 
 }
