@@ -44,6 +44,12 @@ class Message
      */
     private ?Utilisateur $destinataire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DemandeAdoption::class, inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $demandeAdoption;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +111,18 @@ class Message
     public function setDestinataire(?Utilisateur $destinataire): self
     {
         $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    public function getDemandeAdoption(): ?DemandeAdoption
+    {
+        return $this->demandeAdoption;
+    }
+
+    public function setDemandeAdoption(?DemandeAdoption $demandeAdoption): self
+    {
+        $this->demandeAdoption = $demandeAdoption;
 
         return $this;
     }

@@ -47,9 +47,15 @@ class DemandeAdoption
      */
     private $annonce;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption")
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->chiens = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +131,36 @@ class DemandeAdoption
     public function setAnnonce(?Annonce $annonce): self
     {
         $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setDemandeAdoption($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getDemandeAdoption() === $this) {
+                $message->setDemandeAdoption(null);
+            }
+        }
 
         return $this;
     }
