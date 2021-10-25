@@ -76,11 +76,22 @@ class Chien
      */
     private ArrayCollection $photos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=DemandeAdoption::class, mappedBy="chiens")
+     */
+    private $demandeAdoptions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="chiens")
+     */
+    private $annonce;
+
 
     public function __construct()
     {
         $this->races = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->demandeAdoptions = new ArrayCollection();
     }
 
 
@@ -241,6 +252,45 @@ class Chien
     public function removePhoto(Photo $photo): self
     {
         $this->photos->removeElement($photo);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DemandeAdoption[]
+     */
+    public function getDemandeAdoptions(): Collection
+    {
+        return $this->demandeAdoptions;
+    }
+
+    public function addDemandeAdoption(DemandeAdoption $demandeAdoption): self
+    {
+        if (!$this->demandeAdoptions->contains($demandeAdoption)) {
+            $this->demandeAdoptions[] = $demandeAdoption;
+            $demandeAdoption->addChien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeAdoption(DemandeAdoption $demandeAdoption): self
+    {
+        if ($this->demandeAdoptions->removeElement($demandeAdoption)) {
+            $demandeAdoption->removeChien($this);
+        }
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
 
         return $this;
     }
