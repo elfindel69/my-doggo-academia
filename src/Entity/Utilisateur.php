@@ -70,6 +70,11 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      */
     protected ArrayCollection $messageRecus;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
     public function __construct()
     {
         $this->messagesEnvoyes = new ArrayCollection();
@@ -257,6 +262,18 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
                 $messageRecu->setDestinataire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }
