@@ -1,0 +1,35 @@
+<article>
+    <header>
+        <h2>
+            {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
+            {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
+            {{ annonce.titre }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
+        </h2>
+        {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
+
+    </header>
+    {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
+    {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
+    <p>
+        {{ annonce.description }}
+    </p>
+    {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
+    <h2>Chiens disponibles</h2>
+    <p> il y a {{ annonce.chiens.count() }} chiens disponibles !</p>
+    <div class="container d-flex flex-center">
+        {% for chien in annonce.chiens %}
+            {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
+            {% if chien is not empty %}
+
+                {# On inclue un autre template en lui transmettant des paramètres #}
+                {# Ici, on lui dit qu'il n'aura que les paramètres globaux (app) et la variable article #}
+                {% include 'chien/_chien.html.twig' with { chien: chien } only %}
+
+                {# Notez ici que les tags ont souvent un début et une fin, mais que l'on utilise plus d'accolades #}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <p>
+        mise à jour {{ annonce.dateMaJ }}
+    </p>
+</article>

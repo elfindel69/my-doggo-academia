@@ -47,4 +47,13 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findLast()
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.aPourvoir = 1')
+            ->addOrderBy('a.dateCreation','DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
