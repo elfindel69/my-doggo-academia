@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Utilisateur;
+use App\Entity\Annonceur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -64,4 +65,11 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         ;
     }
     */
+    public function findAnnonceurs(): array
+    {
+        //requête DQL avec le nom complet de la classe
+        return $this->_em->createQuery('SELECT a FROM App\Entity\Annonceur a')
+            ->getArrayResult();
+
+    }
 }

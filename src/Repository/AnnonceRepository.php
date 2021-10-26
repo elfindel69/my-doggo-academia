@@ -47,4 +47,21 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findLast()
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect([
+                'c',
+                'p',
+                'r'
+            ])
+            ->innerJoin("a.chiens", "c")
+            ->innerJoin("c.photos", "p")
+            ->innerJoin("c.races", "r")
+            ->andWhere("a.aPourvoir = 1")
+            ->orderBy("a.dateCreation","DESC")
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

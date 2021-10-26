@@ -32,7 +32,7 @@ class DemandeAdoption
     private ?Adoptant $adoptant;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandeAdoptions")
+     * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandeAdoption")
      */
     private ArrayCollection $chiens;
 

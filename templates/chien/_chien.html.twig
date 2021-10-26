@@ -1,0 +1,56 @@
+<article class="col-3">
+    <header>
+        <h2>
+            {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
+            {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
+            {{ chien.nom }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
+        </h2>
+        {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
+
+    </header>
+    <div class="text-center container d-flex flex">
+        {% for photo in chien.photos %}
+            <img src="{{ photo.url }}" alt="{{ photo.nom }}">
+        {% endfor %}
+    </div>
+    {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
+    {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
+    <p>
+       age : {{ chien.age }}
+    </p>
+    <p>
+        taille : {{ chien.taille }}
+    </p>
+    <p>
+        poids : {{ chien.poids }}
+    </p>
+    <p>
+        sexe : {{ chien.sexe }}
+    </p>
+    <p>
+        description : <br> {{ chien.description }}
+    </p>
+    <p>
+        antecedents : <br> {{ chien.antecedents }}
+    </p>
+    {% if chien.lof %}
+        <p>
+            Inscrit au LOF
+        </p>
+    {% endif %}
+    {% if chien.sociable %}
+        <p>
+            chien sociable
+        </p>
+    {% endif %}
+    <p>
+        races : <br>
+        {% for race in chien.races %}
+            {{ race.nom }}<br>
+        {% endfor %}
+
+    </p>
+
+    {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
+
+</article>
