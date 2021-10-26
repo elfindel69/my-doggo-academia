@@ -63,12 +63,12 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="expediteur")
      */
-    protected ArrayCollection $messagesEnvoyes;
+    protected Collection $messagesEnvoyes;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="destinataire")
      */
-    protected ArrayCollection $messageRecus;
+    protected Collection $messageRecus;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -274,7 +274,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
         return $this;
     }
+
 }

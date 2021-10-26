@@ -5,10 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UtilisateurRepository;
+use App\Repository\AdoptantRepository;
 
 /**
- *@ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ *@ORM\Entity(repositoryClass=AdoptantRepository::class)
  */
 
 class Adoptant extends Utilisateur

@@ -38,7 +38,7 @@ class Ville
     /**
      * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="ville")
      */
-    private ArrayCollection $utilisateurs;
+    private Collection $utilisateurs;
 
     public function __construct()
     {
