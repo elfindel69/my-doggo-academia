@@ -38,6 +38,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
             $chien->setSociable(true);
             $chien->setSociable(false);
             $chien->setTaille($cpt + 20);
+            $chien->setSexe('male');
             $manager->persist($chien);
             $cpt++;
 
@@ -53,6 +54,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
             $chien2->setSociable(false);
             $chien2->setSociable(true);
             $chien2->setTaille($cpt + 10);
+            $chien->setSexe('femelle');
             $manager->persist($chien2);
             $cpt++;
         }
