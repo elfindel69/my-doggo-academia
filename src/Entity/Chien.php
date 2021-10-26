@@ -86,6 +86,11 @@ class Chien
      */
     private $annonce;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $sexe;
+
 
     public function __construct()
     {
@@ -291,6 +296,18 @@ class Chien
     public function setAnnonce(?Annonce $annonce): self
     {
         $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): self
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }
