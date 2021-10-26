@@ -72,24 +72,24 @@ class Chien
     private ArrayCollection $races;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Photo::class, inversedBy="chiens")
-     */
-    private ArrayCollection $photos;
-
-    /**
      * @ORM\ManyToMany(targetEntity=DemandeAdoption::class, mappedBy="chiens")
      */
-    private $demandeAdoptions;
+    private ArrayCollection $demandeAdoptions;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="chiens")
      */
-    private $annonce;
+    private ?Annonce $annonce;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $sexe;
+    private ?string $sexe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true)
+     */
+    private $photos;
 
 
     public function __construct()
@@ -237,29 +237,6 @@ class Chien
         return $this;
     }
 
-    /**
-     * @return Collection|Photo[]
-     */
-    public function getPhotos(): Collection
-    {
-        return $this->photos;
-    }
-
-    public function addPhoto(Photo $photo): self
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo): self
-    {
-        $this->photos->removeElement($photo);
-
-        return $this;
-    }
 
     /**
      * @return Collection|DemandeAdoption[]
@@ -308,6 +285,36 @@ class Chien
     public function setSexe(string $sexe): self
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setChien($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getChien() === $this) {
+                $photo->setChien(null);
+            }
+        }
 
         return $this;
     }
