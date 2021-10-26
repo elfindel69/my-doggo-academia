@@ -38,11 +38,9 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
             $annonce->setDescription("Doggo ipsum ruff corgo boofers wrinkler blep borkdrive, he made many woofs fat boi maximum borkdrive shoob. Yapper aqua doggo vvv blop length boy you are doing me a frighten, vvv long water shoob tungg woofer borkdrive, pupperino fluffer pupperino blop. ");
             $chien1 = $chiens[$rand];
             $annonce->addChien($chien1);
-            unset($chiens[$chien1->getId()]);
             $rand2 = rand(0, count($chiens)-1);
             $chien2 = $chiens[$rand2];
             $annonce->addChien($chien2);
-            unset($chiens[$chien2->getId()]);
             $annonce->setTitre('Titre de l\'annonce');
             $annonce->setAPourvoir(true);
             $annonce->setDateCreation(new \DateTime());

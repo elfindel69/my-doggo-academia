@@ -26,7 +26,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -73,7 +73,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private ?string $nom;
 
     public function __construct()
     {
