@@ -32,7 +32,7 @@ class Annonce
     /**
      * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce")
      */
-    private ArrayCollection $chiens;
+    private Collection $chiens;
 
     /**
      * @ORM\Column(type="datetime")
@@ -52,7 +52,7 @@ class Annonce
     /**
      * @ORM\OneToMany(targetEntity=DemandeAdoption::class, mappedBy="annonce")
      */
-    private ArrayCollection $demandesAdoption;
+    private Collection $demandesAdoption;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonceur::class, inversedBy="annonces")

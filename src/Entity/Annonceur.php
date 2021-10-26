@@ -5,22 +5,22 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UtilisateurRepository;
+use App\Repository\AnnonceurRepository;
 
 /**
- *@ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ *@ORM\Entity(repositoryClass=AnnonceurRepository::class)
  */
 class Annonceur extends Utilisateur
 {
     /**
      * @ORM\OneToMany(targetEntity=DemandeAdoption::class, mappedBy="annonceur")
      */
-    private ArrayCollection $demandeAdoptions;
+    private Collection $demandeAdoptions;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="annonceur")
      */
-    private ArrayCollection $annonces;
+    private Collection $annonces;
 
     public function __construct()
     {

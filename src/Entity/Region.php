@@ -27,7 +27,7 @@ class Region
     /**
      * @ORM\OneToMany(targetEntity=Departement::class, mappedBy="region", orphanRemoval=true)
      */
-    private ArrayCollection $departements;
+    private Collection $departements;
 
     public function __construct()
     {
