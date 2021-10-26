@@ -1,6 +1,6 @@
 <article>
     <header>
-        <h2>
+        <h2  class="text-center ">
             {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
             {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
             {{ annonce.titre }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
@@ -14,8 +14,8 @@
         {{ annonce.description }}
     </p>
     {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-    <h2>Chiens disponibles</h2>
-    <p> il y a {{ annonce.chiens::count() }} chiens disponibles !</p>
+    <h2 class="text-center ">Chiens disponibles</h2>
+    <p  class="text-center "> il y a {{ annonce.chiens|length }} chiens disponibles !</p>
     <div class="container d-flex flex-center">
         {% for chien in annonce.chiens %}
             {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
@@ -29,7 +29,7 @@
             {% endif %}
         {% endfor %}
     </div>
-    <p>
+    <p class="text-center">
         mise à jour {{ annonce.dateMaJ|date('d/m/y h:i:s') }}
     </p>
 </article>

@@ -10,7 +10,7 @@
     </header>
     <div class="text-center container d-flex flex">
         {% for photo in chien.photos %}
-            <img src="{{ photo.url }}" alt="{{ photo.nom }}">
+            <img  class="annonce_img" src="{{ photo.url }}" alt="{{ photo.nom }}">
         {% endfor %}
     </div>
     {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
