@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Annonceur;
 use App\Repository\AnnonceRepository;
+use App\Repository\AnnonceurRepository;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default_index")
      */
-    public function index(UtilisateurRepository $utilisateurRepository, AnnonceRepository $annonceRepository): Response
+    public function index(AnnonceurRepository $utilisateurRepository, AnnonceRepository $annonceRepository): Response
     {
-        $annonceurs = $utilisateurRepository->findAnnonceurs();
+        $annonceurs = $utilisateurRepository->findAll();
         $annonces = $annonceRepository->findLast();
 
         return $this->render('home.html.twig', [

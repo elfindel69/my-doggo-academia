@@ -1,6 +1,6 @@
 <article>
     <header>
-        <h2>
+        <h2 class="text-center">
             {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
             {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
             {{ annonce.titre }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
@@ -12,17 +12,19 @@
     {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
 
     {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-    <h2>Chiens disponibles</h2>
-    <p> il y a {{ annonce.chiens.count() }} chiens disponibles !</p>
-     {% for chien in annonce.chiens %}
-         <div class="text-center container d-flex flex">
+    <h2 class="text-center">Chiens disponibles</h2>
+    <p class="text-center"> il y a {{ annonce.chiens|length }} chiens disponibles !</p>
+    <div class="container d-flex flex">
+         {% for chien in annonce.chiens %}
+             <div class="row justify-content-center">
              {% for photo in chien.photos %}
-                 <img src="{{ photo.url }}" alt="{{ photo.nom }}">
+                 <img class="annonce_img" src="{{ photo.url }}" alt="{{ photo.nom }}">
              {% endfor %}
-         </div>
-     {% endfor %}
-    <p> races des chiens disponibles : </p>
-    <ul>
+             </div>
+         {% endfor %}
+    </div>
+    <p class="text-center"> races des chiens disponibles : </p>
+    <ul class="text-center">
         {% for chien in annonce.chiens %}
 
             {% for race in chien.races %}
@@ -30,7 +32,7 @@
             {% endfor %}
         {% endfor %}
     </ul>
-    <p>
-        mise à jour {{ annonce.dateMaJ }}
+    <p class="text-center">
+        mise à jour {{annonce.dateMaJ|date('d/m/y h:i:s') }}
     </p>
 </article>
