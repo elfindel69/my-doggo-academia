@@ -33,7 +33,7 @@ class Departement
     /**
      * @ORM\OneToMany(targetEntity=Ville::class, mappedBy="departement", orphanRemoval=true)
      */
-    private ArrayCollection $villes;
+    private Collection $villes;
 
     public function __construct()
     {

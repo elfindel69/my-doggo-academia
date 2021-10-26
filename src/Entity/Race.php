@@ -27,7 +27,7 @@ class Race
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, mappedBy="races")
      */
-    private ArrayCollection $chiens;
+    private Collection $chiens;
 
     public function __construct()
     {

@@ -69,12 +69,12 @@ class Chien
     /**
      * @ORM\ManyToMany(targetEntity=Race::class, inversedBy="chiens")
      */
-    private ArrayCollection $races;
+    private Collection $races;
 
     /**
      * @ORM\ManyToMany(targetEntity=DemandeAdoption::class, mappedBy="chiens")
      */
-    private ArrayCollection $demandeAdoptions;
+    private Collection $demandeAdoption;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="chiens")
