@@ -1,0 +1,3 @@
+twig:
+  default_path: '%kernel.project_dir%/templates'
+  form_themes: ['bootstrap_5_horizontal_layout.html.twig'] # On dit à Symfony d'utiliser un thème déjà prêt, intégrant les classes de Boostrap (version 5)
