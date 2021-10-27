@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
+use App\Entity\Annonceur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -64,4 +65,21 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+    public function findAnnoncesAPourvoir(?Annonceur $annonceur)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect(["c",
+                'r',
+                'p'])
+            ->innerJoin("a.chiens",'c')
+            ->innerJoin("c.races",'r')
+            ->innerJoin('c.photos','p')
+            ->innerJoin("a.annonceur","an")
+            ->andWhere("a.annonceur = :annonceur")
+            ->setParameter("annonceur",$annonceur)
+            ->andWhere("a.aPourvoir = 1")
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 }

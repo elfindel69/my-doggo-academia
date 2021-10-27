@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {% include 'annonceur/_annonceur.html.twig' with { annonceur: annonceur } only %}
+    <article>
+        {% for annonce in annonces %}
+            {% include 'annonce/_annonce.html.twig' with {annonce: annonce } only %}
+            <div class="text-center">
+                <a  class="btn btn-primary btn-lg" href="{{ path('annonces_single_annonce',{id:annonce.id})}}">Détails</a>
+            </div>
+        {% endfor %}
+    </article>
+{% endblock %}
