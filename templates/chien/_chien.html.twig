@@ -1,4 +1,4 @@
-<article class="col-3">
+<div class="card">
     <header>
         <h2>
             {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
@@ -8,49 +8,49 @@
         {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
 
     </header>
-    <div class="text-center container d-flex flex">
-        {% for photo in chien.photos %}
-            <img src="{{ photo.url }}" alt="{{ photo.nom }}">
-        {% endfor %}
+   {# <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">#}
+            {% for photo in chien.photos %}
+           {#<div class="carousel-item"> #}
+                <img  class="d-block w-100" src="{{ photo.url }}" alt="{{ photo.nom }}">
+            {# </div> #}
+            {% endfor %}
+        {# </div>
+    </div> #}
+    <div class="card-body">
+        <p>
+            age : {{ chien.age }}
+        </p>
+        <p>
+            taille : {{ chien.taille }}
+        </p>
+        <p>
+            poids : {{ chien.poids }}
+        </p>
+        <p>
+            sexe : {{ chien.sexe }}
+        </p>
+        <p>
+            description : <br> {{ chien.description }}
+        </p>
+        <p>
+            antecedents : <br> {{ chien.antecedents }}
+        </p>
+        {% if chien.lof %}
+            <p>
+                Inscrit au LOF
+            </p>
+        {% endif %}
+        {% if chien.sociable %}
+            <p>
+                chien sociable
+            </p>
+        {% endif %}
+        <p>
+            races : <br>
+            {% for race in chien.races %}
+                {{ race.nom }}<br>
+            {% endfor %}
+        </p>
     </div>
-    {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
-    {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
-    <p>
-       age : {{ chien.age }}
-    </p>
-    <p>
-        taille : {{ chien.taille }}
-    </p>
-    <p>
-        poids : {{ chien.poids }}
-    </p>
-    <p>
-        sexe : {{ chien.sexe }}
-    </p>
-    <p>
-        description : <br> {{ chien.description }}
-    </p>
-    <p>
-        antecedents : <br> {{ chien.antecedents }}
-    </p>
-    {% if chien.lof %}
-        <p>
-            Inscrit au LOF
-        </p>
-    {% endif %}
-    {% if chien.sociable %}
-        <p>
-            chien sociable
-        </p>
-    {% endif %}
-    <p>
-        races : <br>
-        {% for race in chien.races %}
-            {{ race.nom }}<br>
-        {% endfor %}
-
-    </p>
-
-    {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-
-</article>
+</div>
