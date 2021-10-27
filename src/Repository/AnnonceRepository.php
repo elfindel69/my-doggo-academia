@@ -53,11 +53,13 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect([
                 'c',
                 'p',
-                'r'
+                'r',
+                'an'
             ])
             ->innerJoin("a.chiens", "c")
             ->innerJoin("c.photos", "p")
             ->innerJoin("c.races", "r")
+            ->innerJoin("a.annonceur", "an")
             ->andWhere("a.aPourvoir = 1")
             ->orderBy("a.dateCreation","DESC")
             ->setMaxResults(5)
