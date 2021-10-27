@@ -23,4 +23,14 @@ class AnnonceurController extends AbstractController
             'annonces' => $annonces,
         ]);
     }
+    /**
+     * @Route("/annonceurs", name="annonceurs_annonceurs")
+     */
+    public function annonceurs(AnnonceurRepository $annonceurRepository):Response{
+        $annonceurs = $annonceurRepository->findAll();
+        return $this->render('annonceur/_liste_annonceurs.html.twig', [
+            'annonceurs' => $annonceurs
+
+        ]);
+    }
 }
