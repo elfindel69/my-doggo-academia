@@ -31,8 +31,6 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($annonceurs as $annonceur) {
             $rand = rand(0, count($chiens)-1);
-
-
             $annonce = new Annonce();
             $annonce->setAnnonceur($annonceur);
             $annonce->setDescription("Doggo ipsum ruff corgo boofers wrinkler blep borkdrive, he made many woofs fat boi maximum borkdrive shoob. Yapper aqua doggo vvv blop length boy you are doing me a frighten, vvv long water shoob tungg woofer borkdrive, pupperino fluffer pupperino blop. ");

@@ -9,12 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({ "annonceur" = "Annonceur", "adoptant" = "Adoptant"})
+ * @InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="type", type="string")
+ * @DiscriminatorMap({ "annonceur" = "Annonceur", "adoptant" = "Adoptant"})
+ * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte créé avec cet email, veuillez vous connecter")
  *
  */
 abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
@@ -28,6 +31,8 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="Veuillez renseigner un email valide (de type : email@domaine.com)")
+     * @Assert\NotBlank
      */
     protected ?string $email;
 
@@ -39,22 +44,25 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(max = 255, min = 8, minMessage = "Votre mot de passe doit faire au moins {{ limit }} caractères")
      */
     protected string $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     protected ?string $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     protected ?string $telephone;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="utilisateurs")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected ?Ville $ville;
 
@@ -69,7 +77,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     protected Collection $messageRecus;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $nom;
 
