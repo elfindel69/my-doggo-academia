@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
- * @InheritanceType("JOINED")
- * @DiscriminatorColumn(name="type", type="string")
- * @DiscriminatorMap({ "annonceur" = "Annonceur", "adoptant" = "Adoptant"})
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({ "annonceur" = "Annonceur", "adoptant" = "Adoptant"})
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte créé avec cet email, veuillez vous connecter")
  *
  */
