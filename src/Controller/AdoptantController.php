@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Adoptant;
+use App\Form\AdoptantFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ class AdoptantController extends AbstractController
 
         $adoptant = new Adoptant();
 
-        $form = $this->createForm(Adoptant::class, $adoptant, [
+        $form = $this->createForm(AdoptantFormType::class, $adoptant, [
             'method' => 'post',
         ]);
 
@@ -28,7 +29,7 @@ class AdoptantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($adoptant);
             $em->flush();
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('default_index');
         }
 
         return $this->render('adoptant/formAdoptant.html.twig', [
