@@ -4,5 +4,16 @@ body{
 }
 
 .annonce_img{
-    width: 400px;
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.my-card {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
