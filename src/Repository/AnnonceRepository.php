@@ -51,37 +51,16 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findLast()
     {
         return $this->createQueryBuilder('a')
-            ->addSelect([
-                'c',
-                'p',
-                'r',
-                'an'
-            ])
+            ->distinct()
             ->innerJoin("a.chiens", "c")
             ->innerJoin("c.photos", "p")
             ->innerJoin("c.races", "r")
             ->innerJoin("a.annonceur", "an")
-            ->andWhere("a.aPourvoir = 1")
+            ->andWhere("a.aPourvoir = :aPourvoir")
+            ->setParameter('aPourvoir', true)
             ->orderBy("a.dateCreation","DESC")
-            ->setMaxResults(5)
+            ->setMaxResults(6)
             ->getQuery()
-            ->getArrayResult();
+            ->getResult();
     }
-    public function findAnnoncesAPourvoir(?Annonceur $annonceur)
-    {
-        return $this->createQueryBuilder('a')
-            ->addSelect(["c",
-                'r',
-                'p'])
-            ->innerJoin("a.chiens",'c')
-            ->innerJoin("c.races",'r')
-            ->innerJoin('c.photos','p')
-            ->innerJoin("a.annonceur","an")
-            ->andWhere("a.annonceur = :annonceur")
-            ->setParameter("annonceur",$annonceur)
-            ->andWhere("a.aPourvoir = 1")
-            ->getQuery()
-            ->getArrayResult();
-    }
-
 }

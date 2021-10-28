@@ -1,35 +1,70 @@
-<article>
-    <header>
-        <h2  class="text-center ">
-            {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
-            {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
-            {{ annonce.titre }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
-        </h2>
-        {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
+{#<article>#}
+{#    <header>#}
+{#        <h2  class="text-center ">#}
+{#            #}{# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
+{#            #}{# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
+{#            {{ annonce.titre }}#}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
+{#        </h2>#}
+{#        #}{# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
 
-    </header>
-    {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
-    {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
-    <p>
-        {{ annonce.description }}
-    </p>
-    {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-    <h2 class="text-center ">Chiens disponibles</h2>
-    <p  class="text-center "> il y a {{ annonce.chiens|length }} chiens disponibles !</p>
-    <div class="container d-flex flex-center">
-        {% for chien in annonce.chiens %}
-            {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
-            {% if chien is not empty %}
+{#    </header>#}
+{#    #}{# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
+{#    #}{# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
+{#    <p>#}
+{#        {{ annonce.description }}#}
+{#    </p>#}
+{#    #}{# url prend les mêmes paramètres que path, mais retourne une url absolue #}
+{#    <h2 class="text-center ">Chiens disponibles</h2>#}
+{#    <p  class="text-center "> il y a {{ annonce.chiens|length }} chiens disponibles !</p>#}
+{#    <div class="container d-flex flex-center">#}
+{#        {% for chien in annonce.chiens %}#}
+{#            #}{# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
+{#            {% if chien is not empty %}#}
 
-                {# On inclue un autre template en lui transmettant des paramètres #}
-                {# Ici, on lui dit qu'il n'aura que les paramètres globaux (app) et la variable article #}
-                {% include 'chien/_chien.html.twig' with { chien: chien } only %}
+{#                #}{# On inclue un autre template en lui transmettant des paramètres #}
+{#                #}{# Ici, on lui dit qu'il n'aura que les paramètres globaux (app) et la variable article #}
+{#                {% include 'chien/_chien.html.twig' with { chien: chien } only %}#}
 
-                {# Notez ici que les tags ont souvent un début et une fin, mais que l'on utilise plus d'accolades #}
-            {% endif %}
-        {% endfor %}
+{#                #}{# Notez ici que les tags ont souvent un début et une fin, mais que l'on utilise plus d'accolades #}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#    <p class="text-center">#}
+{#        mise à jour {{ annonce.dateMaJ|date('d/m/y h:i:s') }}#}
+{#    </p>#}
+{#</article>#}
+
+
+
+<div class="card my-card my-3 col-3">
+    <div class="card-header text-muted">
+        <a href="" class="text-reset">
+            {{ annonce.annonceur.nom }}
+        </a>
+
+        {#    Rajouter un lien vers la page de detail de l'annonceur     #}
+
     </div>
-    <p class="text-center">
-        mise à jour {{ annonce.dateMaJ|date('d/m/y h:i:s') }}
-    </p>
-</article>
+
+    {%  if annonce.chiens is not empty  %}
+        <img src="{{ annonce.chiens[0].photos[0].url }}" class="card-img-top" alt="">
+    {% endif %}
+
+    <div class="card-body">
+        <h5 class="card-title">{{ annonce.titre }}</h5>
+        <p class="text-center"> Il y a <strong> {{ annonce.chiens|length }} </strong> chien(s) disponible(s) !</p>
+        <p class="card-text">{{ annonce.description}}</p>
+        <p class="card-text">Races des chiens : </p>
+        <ul class="">
+            {% for chien in annonce.chiens %}
+                {% for race in chien.races %}
+                    <li>{{ race.nom }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-primary">Voir +</a>
+    </div>
+    <div class="card-footer text-muted text-end">
+        <i> Modifiée le : {{annonce.dateMaJ|date('d/m/y') }} </i>
+    </div>
+</div>

@@ -17,6 +17,7 @@ class DefaultController extends AbstractController
      */
     public function index(AnnonceurRepository $utilisateurRepository, AnnonceRepository $annonceRepository): Response
     {
+
         $annonceurs = $utilisateurRepository->findAll();
         $annonces = $annonceRepository->findLast();
 
