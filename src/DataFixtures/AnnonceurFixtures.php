@@ -22,7 +22,7 @@ class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implemen
     public function load(ObjectManager $manager)
     {
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 12; $i++) {
 
             $villes = $this->villeRepository->findAll();
             $rand = rand(0, count($villes)-1);
