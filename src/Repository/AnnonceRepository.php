@@ -64,5 +64,25 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAnnoncesAPourvoir(?Annonceur $annonceur)
+    {
+       return $this->createQueryBuilder("a")
+            ->distinct()
+            ->addSelect(['an',
+                'c',
+                'r',
+                'p'])
+            ->innerJoin("a.annonceur",'an')
+            ->innerJoin("a.chiens", "c")
+            ->innerJoin("c.photos", "p")
+            ->innerJoin("c.races", "r")
+            ->andWhere('a.aPourvoir = :aPourvoir')
+            ->setParameter('aPourvoir',true)
+            ->andWhere('a.annonceur = :annonceur')
+            ->setParameter('annonceur',$annonceur)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }
