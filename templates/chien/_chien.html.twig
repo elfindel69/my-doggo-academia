@@ -1,55 +1,40 @@
-<div class="card">
+<div class="card col m-2">
     <header>
-        <h2>
-            {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
-            {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
-            {{ chien.nom }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
-        </h2>
-        {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
-
+        <h2 class="text-center">{{ chien.nom }}</h2>        
     </header>
-   {# <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">#}
+
+        <div class="row">
             {% for photo in chien.photos %}
-           {#<div class="carousel-item"> #}
-                <img  class="d-block w-100" src="{{ photo.url }}" alt="{{ photo.nom }}">
-            {# </div> #}
+                <img class="col-6 my-2" src="{{ photo.url }}" alt="{{ photo.nom }}">
             {% endfor %}
-        {# </div>
-    </div> #}
+        </div>
+
     <div class="card-body">
-        <p>
-            age : {{ chien.age }}
-        </p>
-        <p>
-            taille : {{ chien.taille }}
-        </p>
-        <p>
-            poids : {{ chien.poids }}
-        </p>
-        <p>
-            sexe : {{ chien.sexe }}
-        </p>
-        <p>
-            description : <br> {{ chien.description }}
-        </p>
-        <p>
-            antecedents : <br> {{ chien.antecedents }}
-        </p>
-        {% if chien.lof %}
-            <p>
-                Inscrit au LOF
-            </p>
-        {% endif %}
+        <div class="row">
+            <p class="col text-center"><strong>Age :</strong> {{ chien.age }} ans</p>
+            <p class="col text-center"><strong>Taille :</strong> {{ chien.taille }} cm</p>
+        </div>
+        <div class="row">
+            <p class="col text-center"><strong>Poids :</strong> {{ chien.poids }} kg</p>
+            <p class="col text-center"><strong>Sexe :</strong> {{ chien.sexe }}</p>
+        </div>
+
         {% if chien.sociable %}
-            <p>
-                chien sociable
-            </p>
+            <p class="text-center">Chien sociable</p>
         {% endif %}
-        <p>
-            races : <br>
-            {% for race in chien.races %}
-                {{ race.nom }}<br>
+
+        <p><strong>Description :</strong> <br> {{ chien.description }}</p>
+        <p><strong>Antecedents :</strong> <br> {{ chien.antecedents }}</p>
+
+        {% if chien.lof %}
+            <h5 class="text-center">Inscrit au LOF</h5>
+        {% endif %}
+
+        <p><strong>Races : </strong>
+        <br>
+        {% for race in chien.races %}
+            {{ race.nom }}
+        <br>
             {% endfor %}
         </p>
     </div>

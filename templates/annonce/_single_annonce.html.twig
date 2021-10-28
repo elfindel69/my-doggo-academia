@@ -2,34 +2,23 @@
 
 {% block body %}
     <article>
-        <header>
-            <h2 class="text-center">
-                {# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
-                {# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
-                {{ annonce.titre }}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
-            </h2>
-            {# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
-
+        
+        <div class="container">
+        <header class="row my-4">
+            <div class="col-4"></div>
+            <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
+            <div class="col-4 text-end"><button class="btn btn-success">Adopter un iench</button></div>
         </header>
-        {# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
-        {# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
-
-        {# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-        <div class="container d-flex flex">
-            <div class="col col-md-7 my-auto">
-                <p>
-                    {{ annonce.description }}
-                </p>
                 <div class="text-center">
-                    <a class="btn btn-primary btn-lg btn-center " href="#">Détails</a>
+                    <p>{{ annonce.description }}</p>
                 </div>
-            </div>
-            <div class="col col-md-5 ">
+                <div class="row">
                 {% for chien in annonce.chiens  %}
                     {% include 'chien/_chien.html.twig' with { chien: chien } only %}
                 {% endfor %}
             </div>
         </div>
+        <div class="text-center my-4"><button class="btn btn-success">Adopter un iench</button></div>   
     </article>
 {% endblock %}
 
