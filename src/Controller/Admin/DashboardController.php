@@ -6,6 +6,10 @@ use App\Entity\Admin;
 use App\Entity\Adoptant;
 use App\Entity\Annonceur;
 use App\Entity\Race;
+use App\Repository\AdminRepository;
+use App\Repository\AdoptantRepository;
+use App\Repository\AnnonceurRepository;
+use App\Repository\RaceRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -14,12 +18,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    private AdminRepository $adminRepository;
+    private AdoptantRepository $adoptantRepository;
+    private RaceRepository $raceRepository;
+    private AnnonceurRepository $annonceurRepository;
+
+    public function __construct(AdminRepository $adminRepository, AdoptantRepository $adoptantRepository
+    , AnnonceurRepository                       $annonceurRepository, RaceRepository $raceRepository){
+        $this->adminRepository = $adminRepository;
+        $this->adoptantRepository = $adoptantRepository;
+        $this->annonceurRepository = $annonceurRepository;
+        $this->raceRepository = $raceRepository;
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        return $this->render('admin/admin-dashboard.html.twig');
+        $nbAdmins = $this->adminRepository->countElements();
+        $nbAdoptants = $this->adoptantRepository->countElements();
+        $nbAnnonceurs = $this->annonceurRepository->countElements();
+        $nbRaces = $this->raceRepository->countElements();
+        return $this->render('admin/admin-dashboard.html.twig',[
+            'nbAdmins'=>$nbAdmins,
+            'nbAdoptants'=>$nbAdoptants,
+            'nbAnnonceurs'=>$nbAnnonceurs,
+            'nbRaces'=>$nbRaces
+        ]);
     }
 
     public function configureDashboard(): Dashboard

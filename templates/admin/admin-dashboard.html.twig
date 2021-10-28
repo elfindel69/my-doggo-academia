@@ -37,17 +37,17 @@
     {% set admin_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AdminCrudController')
         .setAction('new') %}
-    <p><strong>{# #}</strong> Admins enregistrés - <a href="{{ admin_url_new }}">Créer un Admin</a></p>
+    <p><strong>{{nbAdmins}}</strong> Admins enregistrés - <a href="{{ admin_url_new }}">Créer un Admin</a></p>
     {% set adoptant_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AdoptantCrudController')
         .setAction('new') %}
-    <p><strong>{# #}</strong> Adoptants enregistrés - <a href="{{ admin_url_new }}">Créer un Adoptant</a></p>
+    <p><strong>{{ nbAdoptants }}</strong> Adoptants enregistrés - <a href="{{ admin_url_new }}">Créer un Adoptant</a></p>
     {% set annonceur_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AnnonceurCrudController')
         .setAction('new') %}
-    <p><strong>{# #}</strong> Annonceurs enregistrés - <a href="{{ annonceur_url_new }}">Créer un Annonceur</a></p>
+    <p><strong>{{ nbAnnonceurs }}</strong> Annonceurs enregistrés - <a href="{{ annonceur_url_new }}">Créer un Annonceur</a></p>
     {% set race_url_new = ea_url()
         .setController('App\\Controller\\Admin\\RaceCrudController')
         .setAction('new') %}
-    <p><strong>{# #}</strong> Races de Chiens enregistrées - <a href="{{ race_url_new }}">Créer une Race de Chien</a></p>
+    <p><strong>{{ nbRaces }}</strong> Races de Chiens enregistrées - <a href="{{ race_url_new }}">Créer une Race de Chien</a></p>
 {% endblock %}

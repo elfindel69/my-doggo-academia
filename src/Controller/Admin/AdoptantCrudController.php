@@ -35,8 +35,6 @@ class AdoptantCrudController extends AbstractCrudController
             ->setController(AnnonceurCrudController::class)
             ->setAction(Action::NEW)
             ->generateUrl();
-
-
         // ...
     }
     public static function getEntityFqcn(): string

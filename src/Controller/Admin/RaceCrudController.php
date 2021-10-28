@@ -45,7 +45,6 @@ class RaceCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            'id',
             'nom'
         ];
     }
