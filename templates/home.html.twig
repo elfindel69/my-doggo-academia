@@ -37,13 +37,9 @@
             {% for annonceur in annonceurs %}
                 {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
                 {% if annonceur is not empty %}
-
                     {# On inclue un autre template en lui transmettant des paramètres #}
                     {# Ici, on lui dit qu'il n'aura que les paramètres globaux (app) et la variable article #}
                     {% include 'annonceur/_annonceur.html.twig' with { annonceur: annonceur } only %}
-                    <div class="text-center">
-                        <a class="btn btn-primary btn-lg" href="{{ uri('annonceur_single',{id:annonceur.id})}}">Détails</a>
-                    </div>
                     {# Notez ici que les tags ont souvent un début et une fin, mais que l'on utilise plus d'accolades #}
                 {% endif %}
 
