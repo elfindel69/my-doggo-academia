@@ -28,5 +28,6 @@
         <p class="card-text">Telephone : {{ annonceur.telephone }}</p>
         <p class="card-text">Email : <a href="mailto:{{ annonceur.email }}">{{ annonceur.email }}</a></p>
         <p class="card-text">Adresse : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}</p>
+        <a href="{{ url('annonceur_single',{id:annonceur.id})}}" class="btn btn-outline-primary">Voir +</a>
     </div>
 </div>
