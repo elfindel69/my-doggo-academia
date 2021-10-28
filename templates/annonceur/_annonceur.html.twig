@@ -1,32 +1,15 @@
-{#<article class="my-2 text-center">#}
-{#    <header>#}
-{#        <h2>#}
-{#            #}{# Pour récupérer une propriété d'un objet, on utilise généralement cette notation : nomDeLaVariable.nomDeSaPropriete #}
-{#            #}{# Dans les faits, c'est la méthode getTitle() de notre objet Article qui va être appelée, il faut donc qu'elle soit définie. #}
-{#            {{ annonceur.nom }}#}{# on aurait aussi pu écrire article.getTitle() pour bien montrer l'appel au getter #}
-{#        </h2>#}
-{#        #}{# Ici, on charge l'image qui se trouve dans le dossier public/chemin/vers/une/image.jpg. L'avantage est que nous n'avons plus à gérer le dossier dans lequel nous nous trouvons, Symfony le fait pour nous #}
 
-{#    </header>#}
-{#    #}{# path nous permet d'avoir le lien (relatif) vers notre article. On utilise généralement le lien relatif car il est plus court à calculer et éviter beaucoup de calculs au navigateur. #}
-{#    #}{# path prend en premier paramètre le nom d'une route, et en second un "objet" avec les paramètres de la route #}
-{#    <p>#}
-{#       téléphone : {{ annonceur.telephone }}#}
-{#    </p>#}
-{#    <p>#}
-{#        email : {{ annonceur.email }}#}
-{#    </p>#}
-{#    <p>#}
-{#        adresse : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}#}
-{#    </p>#}
-{#    #}{# url prend les mêmes paramètres que path, mais retourne une url absolue #}
-{#</article>#}
-
-<div class="card col-3 my-card">
+<div class="card col-md-3 my-card">
     <div class="card-body">
-        <h5 class="card-title">{{ annonceur.nom }}</h5>
-        <p class="card-text">Telephone : {{ annonceur.telephone }}</p>
-        <p class="card-text">Email : <a href="mailto:{{ annonceur.email }}">{{ annonceur.email }}</a></p>
-        <p class="card-text">Adresse : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}</p>
+        <h5 class="text-center card-title">{{ annonceur.nom }}</h5><br>
+        <li class="list-group-item">Email : {{ annonceur.email }}</li>
+        <li class="list-group-item">Adresse : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}</li>
+        <li class="list-group-item">Telephone : {{ annonceur.telephone }}</li>
+        <br>
+    <div class="row my-row">
+        <p class="col-6 text-center">Nombre d'annonces à pourvoir : <strong>{{ annonceur.getCountAnnoncesAPourvoir }}</strong></p>
+        <p class="col-6 text-center">Nombre d'annonces pourvues : <strong>{{ annonceur.getCountAnnoncesPourvues }}</strong></p>
+    </div>
+        <a href="{{ url('annonceur_single',{id:annonceur.id})}}" class="stretched-link"></a>
     </div>
 </div>
