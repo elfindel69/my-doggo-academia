@@ -8,21 +8,22 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="navbar-item">  {% set admin_url = ea_url()
+                <li class="navbar-item">
+                    {% set admin_url = ea_url()
                         .setController('App\\Controller\\Admin\\AdminCrudController')
                         .setAction('index') %}
                     <a class="nav-link" href="{{ admin_url}}">Page admins</a></li>
                 <li class="navbar-item">
-                    {% set race_url = ea_url()
+                    {% set adoptant_url = ea_url()
                         .setController('App\\Controller\\Admin\\AdoptantCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ race_url}}">Page adoptants</a>
+                    <a class="nav-link" href="{{ adoptant_url}}">Page adoptants</a>
                 </li>
                 <li class="navbar-item">
-                    {% set race_url = ea_url()
+                    {% set adoptant_url = ea_url()
                         .setController('App\\Controller\\Admin\\AnnonceurCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ race_url}}">Page adoptants</a>
+                    <a class="nav-link" href="{{ adoptant_url}}">Page adoptants</a>
                 </li>
                 <li class="navbar-item">
                     {% set race_url = ea_url()
@@ -32,25 +33,21 @@
                 </li>
             </ul>
         </div>
-
-
-
     </nav>
-
-   {#  <table class="datagrid">
-        <thead>
-        <tr>
-            <td>Some Column</td>
-            <td>Another Column</td>
-        </tr>
-        </thead>
-        <tbody>
-        {% for data in my_own_data %}
-            <tr>
-                <td>{{ data.someColumn }}</td>
-                <td>{{ data.anotherColumn }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>#}
+    {% set admin_url_new = ea_url()
+        .setController('App\\Controller\\Admin\\AdminCrudController')
+        .setAction('new') %}
+    <p><strong>{# #}</strong> Admins enregistrés - <a href="{{ admin_url_new }}">Créer un Admin</a></p>
+    {% set adoptant_url_new = ea_url()
+        .setController('App\\Controller\\Admin\\AdoptantCrudController')
+        .setAction('new') %}
+    <p><strong>{# #}</strong> Adoptants enregistrés - <a href="{{ admin_url_new }}">Créer un Adoptant</a></p>
+    {% set annonceur_url_new = ea_url()
+        .setController('App\\Controller\\Admin\\AnnonceurCrudController')
+        .setAction('new') %}
+    <p><strong>{# #}</strong> Annonceurs enregistrés - <a href="{{ annonceur_url_new }}">Créer un Annonceur</a></p>
+    {% set race_url_new = ea_url()
+        .setController('App\\Controller\\Admin\\RaceCrudController')
+        .setAction('new') %}
+    <p><strong>{# #}</strong> Races de Chiens enregistrées - <a href="{{ race_url_new }}">Créer une Race de Chien</a></p>
 {% endblock %}
