@@ -33,4 +33,21 @@ class AnnonceurController extends AbstractController
 
         ]);
     }
+    /**
+     * @Route("/moncompte/{id}", name="annonceur_account", requirements={"id"="\d+"})
+     */
+    public function annonceur_account(AnnonceurRepository $annonceurRepository, AnnonceRepository $annonceRepository,
+                                      int $id): Response
+    {
+        $annonceur = $annonceurRepository->find($id);
+        $annonces = $annonceRepository->findBy(
+            ['annonceur' => $annonceur],
+            ['dateCreation' => 'DESC']
+        );
+
+        return $this->render("annonceur/annonceur_account.html.twig", [
+            'annonceur' => $annonceur,
+            'annonces' => $annonces
+        ]);
+    }
 }

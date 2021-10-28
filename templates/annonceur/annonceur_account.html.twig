@@ -1,0 +1,76 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-4">
+                <a class=" btn btn-success">Voir les messages reçus</a>
+            </div>
+            <div class="col-4 d-flex align-items-center">
+                <h1 class="text-center">Hello {{ annonceur.nom }} !</h1>
+            </div>
+            <div class="col-4 text-end">
+                <a class=" btn btn-primary">+ Ajouter une nouvelle annonce</a>
+            </div>
+        </div>
+
+        <br>
+
+        <h2 class="">Vos annonces : </h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Titre de l'annonce</th>
+                    <th scope="col">Chiens disponibles</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Date de modification</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for annonce in annonces %}
+                <tr>
+                    <td>{{ annonce.titre }}</td>
+                    {% if annonce.chiens|length == 0 %}
+                        <td>Tous les chiens ont étés adoptés !</td>
+                    {% endif %}
+                    {% if annonce.chiens|length > 0 %}
+                        <td>{{ annonce.chiens|length }}</td>
+                    {% endif %}
+                    <td>{{ annonce.dateCreation|date('d/m/y') }}</td>
+                    <td>{{ annonce.dateMaJ|date('d/m/y') }}</td>
+                    <td>
+                        <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-outline-success">Voir</a>
+                        <a href="#" class="btn btn-outline-primary">Editer</a>
+                        <a href="#" class="btn btn-outline-danger">Suppr</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+        <div class="row">
+            <div class="col-4">
+                <h2>Vos informations : </h2>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4 text-end">
+                <a class=" btn btn-primary">Modifier vos informations</a>
+            </div>
+        </div>
+        <br>
+
+        <h5>{{ annonceur.nom }}</h5>
+        <br>
+        <p>Email : {{ annonceur.email }}</p>
+        <p>{{ annonceur.adresse }} {{ annonceur.ville.nom }} {{ annonceur.ville.codePostal }}</p>
+        <p>{{ annonceur.telephone }}</p>
+
+    </div>
+
+
+{% endblock %}
