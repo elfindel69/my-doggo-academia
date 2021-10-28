@@ -1,4 +1,3 @@
-
 <div class="card col-md-3 my-card">
     <div class="card-body">
         <h5 class="text-center card-title">{{ annonceur.nom }}</h5><br>
@@ -6,10 +5,10 @@
         <li class="list-group-item">Adresse : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}</li>
         <li class="list-group-item">Telephone : {{ annonceur.telephone }}</li>
         <br>
-        <div class="row my-row">
-            <p class="col-6 text-center">Nombre d'annonces à pourvoir : <strong>{{ annonceur.getCountAnnoncesAPourvoir }}</strong></p>
-            <p class="col-6 text-center">Nombre d'annonces pourvues : <strong>{{ annonceur.getCountAnnoncesPourvues }}</strong></p>
-        </div>
+    <div class="row my-row">
+        <p class="col-6 text-center">Nombre d'annonces à pourvoir : <strong>{{ annonceur.getCountAnnoncesAPourvoir }}</strong></p>
+        <p class="col-6 text-center">Nombre d'annonces pourvues : <strong>{{ annonceur.getCountAnnoncesPourvues }}</strong></p>
+    </div>
         <a href="{{ url('annonceur_single',{id:annonceur.id})}}" class="stretched-link"></a>
     </div>
 </div>
