@@ -1,0 +1,56 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}My Doggo Academia Admin{% endblock %}
+
+
+
+{% block main %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="navbar-item">  {% set admin_url = ea_url()
+                        .setController('App\\Controller\\Admin\\AdminCrudController')
+                        .setAction('index') %}
+                    <a class="nav-link" href="{{ admin_url}}">Page admins</a></li>
+                <li class="navbar-item">
+                    {% set race_url = ea_url()
+                        .setController('App\\Controller\\Admin\\AdoptantCrudController')
+                        .setAction('index') %}
+                    <a class="nav-link" href="{{ race_url}}">Page adoptants</a>
+                </li>
+                <li class="navbar-item">
+                    {% set race_url = ea_url()
+                        .setController('App\\Controller\\Admin\\AnnonceurCrudController')
+                        .setAction('index') %}
+                    <a class="nav-link" href="{{ race_url}}">Page adoptants</a>
+                </li>
+                <li class="navbar-item">
+                    {% set race_url = ea_url()
+                        .setController('App\\Controller\\Admin\\RaceCrudController')
+                        .setAction('index') %}
+                    <a class="nav-link" href="{{ race_url}}">Page races</a>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </nav>
+
+   {#  <table class="datagrid">
+        <thead>
+        <tr>
+            <td>Some Column</td>
+            <td>Another Column</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in my_own_data %}
+            <tr>
+                <td>{{ data.someColumn }}</td>
+                <td>{{ data.anotherColumn }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>#}
+{% endblock %}

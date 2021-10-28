@@ -10,5 +10,4 @@
 ###< symfony/framework-bundle ###
 .idea
 /.php-version
-/.env
 .env
