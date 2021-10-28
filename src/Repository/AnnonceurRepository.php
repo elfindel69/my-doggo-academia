@@ -36,7 +36,6 @@ class AnnonceurRepository extends ServiceEntityRepository implements PasswordUpg
         $this->_em->flush();
     }
 
-
     // /**
     //  * @return Annonceur[] Returns an array of Annonceur objects
     //  */
