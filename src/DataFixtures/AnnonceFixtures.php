@@ -28,21 +28,23 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
 
         $annonceurs = $this->annonceurRepository->findAll();
         $chiens = $this->chienRepository->findAll();
+        $cpt = 0;
+        $cpt2= 19;
 
         foreach ($annonceurs as $annonceur) {
-            $rand = rand(0, count($chiens)-1);
             $annonce = new Annonce();
             $annonce->setAnnonceur($annonceur);
             $annonce->setDescription("Doggo ipsum ruff corgo boofers wrinkler blep borkdrive, he made many woofs fat boi maximum borkdrive shoob. Yapper aqua doggo vvv blop length boy you are doing me a frighten, vvv long water shoob tungg woofer borkdrive, pupperino fluffer pupperino blop. ");
-            $chien1 = $chiens[$rand];
+            $chien1 = $chiens[$cpt];
             $annonce->addChien($chien1);
-            $rand2 = rand(0, count($chiens)-1);
-            $chien2 = $chiens[$rand2];
+            $cpt++;
+            $chien2 = $chiens[$cpt2];
             $annonce->addChien($chien2);
             $annonce->setTitre('Titre de l\'annonce');
             $annonce->setAPourvoir(true);
             $annonce->setDateCreation(new \DateTime());
             $annonce->setDateMaJ(new \DateTime());
+            $cpt2--;
             $manager->persist($annonce);
         }
 
