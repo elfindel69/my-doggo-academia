@@ -20,7 +20,7 @@
 
                     {# On inclue un autre template en lui transmettant des paramètres #}
                     {# Ici, on lui dit qu'il n'aura que les paramètres globaux (app) et la variable article #}
-                    {% include 'annonce/_annonce_home.html.twig' with { annonce: annonce } only %}
+                    {% include 'annonce/_annonce.html.twig' with { annonce: annonce } only %}
 
                     {# Notez ici que les tags ont souvent un début et une fin, mais que l'on utilise plus d'accolades #}
                 {% endif %}
