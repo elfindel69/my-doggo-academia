@@ -32,20 +32,26 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
         $cpt2= 19;
 
         foreach ($annonceurs as $annonceur) {
-            $annonce = new Annonce();
-            $annonce->setAnnonceur($annonceur);
-            $annonce->setDescription("Doggo ipsum ruff corgo boofers wrinkler blep borkdrive, he made many woofs fat boi maximum borkdrive shoob. Yapper aqua doggo vvv blop length boy you are doing me a frighten, vvv long water shoob tungg woofer borkdrive, pupperino fluffer pupperino blop. ");
-            $chien1 = $chiens[$cpt];
-            $annonce->addChien($chien1);
-            $cpt++;
-            $chien2 = $chiens[$cpt2];
-            $annonce->addChien($chien2);
-            $annonce->setTitre('Titre de l\'annonce');
-            $annonce->setAPourvoir(true);
-            $annonce->setDateCreation(new \DateTime());
-            $annonce->setDateMaJ(new \DateTime());
-            $cpt2--;
-            $manager->persist($annonce);
+            for ($i = 0; $i < 2; $i++) {
+                $annonce = new Annonce();
+                $annonce->setAnnonceur($annonceur);
+                $annonce->setDescription("Doggo ipsum ruff corgo boofers wrinkler blep borkdrive, he made many woofs fat boi maximum borkdrive shoob. Yapper aqua doggo vvv blop length boy you are doing me a frighten, vvv long water shoob tungg woofer borkdrive, pupperino fluffer pupperino blop. ");
+                $chien1 = $chiens[$cpt];
+                $annonce->addChien($chien1);
+                $cpt++;
+                $chien2 = $chiens[$cpt2];
+                $annonce->addChien($chien2);
+                $annonce->setTitre('Titre de l\'annonce');
+                $annonce->setAPourvoir(true);
+                $annonce->setDateCreation(new \DateTime());
+                $annonce->setDateMaJ(new \DateTime());
+                $cpt2--;
+                $manager->persist($annonce);
+            }
+
+            $cpt--;
+            $cpt2++;
+
         }
 
         $manager->flush();
