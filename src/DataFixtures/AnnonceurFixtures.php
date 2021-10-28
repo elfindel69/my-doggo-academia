@@ -6,14 +6,17 @@ use App\Entity\Annonceur;
 use App\Repository\VilleRepository;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implements DependentFixtureInterface
 {
 
+    private UserPasswordHasherInterface $hasher;
     private VilleRepository $villeRepository;
 
-    public function __construct(VilleRepository $villeRepository) {
+    public function __construct(VilleRepository $villeRepository, UserPasswordHasherInterface $hasher) {
         $this->villeRepository = $villeRepository;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -29,7 +32,8 @@ class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implemen
 
             $annonceur = new Annonceur();
             $annonceur ->setNom("Annonceur".$i);
-            $annonceur->setPassword("pass".$i);
+            $pwd = $this->hasher->hashPassword($annonceur, "pass".$i);
+            $annonceur->setPassword($pwd);
             $annonceur->setEmail("annonceur".$i."@mail.fr");
             $annonceur->setAdresse("Adresse".$i);
 

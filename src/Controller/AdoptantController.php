@@ -10,16 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 
 class AdoptantController extends AbstractController
 {
 
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct()
     {
-        $this->security = $security;
+
     }
 
     /**
@@ -52,7 +49,7 @@ class AdoptantController extends AbstractController
      */
     public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response 
     {
-        $adoptant = $this->security->getUser();
+        $adoptant = $this->getUser();
 
         $form = $this->createForm(AdoptantCompleteFormType::class, $adoptant, [
             'method' => 'post'
