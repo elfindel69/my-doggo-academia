@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnnonceurRepository;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  *@ORM\Entity(repositoryClass=AnnonceurRepository::class)
@@ -88,4 +89,28 @@ class Annonceur extends Utilisateur
 
         return $this;
     }
+
+    public function getCountAnnoncesAPourvoir(): int {
+        $cpt = 0;
+
+        foreach ($this->getAnnonces() as $annonce) {
+            if ($annonce->getAnnonceur()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
+
+    public function getCountAnnoncesPourvues(): int {
+        $cpt = 0;
+
+        foreach ($this->getAnnonces() as $annonce) {
+            if (!$annonce->getAnnonceur()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
+
+
 }
