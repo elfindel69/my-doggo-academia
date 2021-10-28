@@ -7,14 +7,17 @@ use App\Repository\VilleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdoptantFixtures extends Fixture implements DependentFixtureInterface
 {
 
+    private UserPasswordHasherInterface $hasher;
     private VilleRepository $villeRepository;
 
-    public function __construct(VilleRepository $villeRepository) {
+    public function __construct(VilleRepository $villeRepository, UserPasswordHasherInterface $hasher) {
         $this->villeRepository = $villeRepository;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -29,7 +32,8 @@ class AdoptantFixtures extends Fixture implements DependentFixtureInterface
 
             $adoptant = new Adoptant();
             $adoptant->setNom("Adoptant".$i);
-            $adoptant->setPassword("pass".$i);
+            $pwd = $this->hasher->hashPassword($adoptant, "pass".$i);
+            $adoptant->setPassword($pwd);
             $adoptant->setEmail("adoptant".$i."@mail.fr");
             $adoptant->setAdresse("Adresse".$i);
 
