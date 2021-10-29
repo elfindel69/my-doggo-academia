@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonceur;
 use App\Repository\AnnonceRepository;
 use App\Repository\AnnonceurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,7 @@ class AnnonceurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/annonceurs", name="annonceurs_annonceurs")
+     * @Route("/annonceurs", name="annonceurs_liste")
      */
     public function annonceurs(AnnonceurRepository $annonceurRepository):Response{
         $annonceurs = $annonceurRepository->findAll();
@@ -34,12 +35,11 @@ class AnnonceurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/moncompte/{id}", name="annonceur_account", requirements={"id"="\d+"})
+     * @Route("/moncompte", name="annonceur_account", requirements={"id"="\d+"})
      */
-    public function annonceur_account(AnnonceurRepository $annonceurRepository, AnnonceRepository $annonceRepository,
-                                      int $id): Response
+    public function annonceur_account(AnnonceRepository $annonceRepository): Response
     {
-        $annonceur = $annonceurRepository->find($id);
+        $annonceur = $this->getUser();
         $annonces = $annonceRepository->findBy(
             ['annonceur' => $annonceur],
             ['dateCreation' => 'DESC']
