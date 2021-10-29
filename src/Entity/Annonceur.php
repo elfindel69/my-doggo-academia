@@ -29,7 +29,14 @@ class Annonceur extends Utilisateur
         $this->demandeAdoptions = new ArrayCollection();
         $this->annonces = new ArrayCollection();
     }
-
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ANNONCEUR';
+        return array_unique($roles);
+    }
     /**
      * @return Collection|DemandeAdoption[]
      */
