@@ -7,6 +7,7 @@ use App\Entity\Race;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -97,7 +98,18 @@ class ChienType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple' => true,
                 ]
-
+            )
+            ->add(
+                'photos',
+                CollectionType::class,
+                [
+                    'entry_type' => PhotoType::class,
+                    'entry_options' => [
+                        'label' => false,
+                    ],
+                    'by_reference' => false,
+                    'allow_add' => true,
+                ]
             )
         ;
     }

@@ -20,6 +20,8 @@ class AnnonceType extends AbstractType
                 CollectionType::class,
                 [
                     'entry_type' => ChienType::class,
+                    'by_reference' => false,
+                    'allow_add' => true,
                 ]
             );
     }
