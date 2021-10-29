@@ -35,7 +35,7 @@ class AnnonceurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/moncompte", name="annonceur_account", requirements={"id"="\d+"})
+     * @Route("/moncompte", name="annonceur_account")
      */
     public function annonceur_account(AnnonceRepository $annonceRepository): Response
     {

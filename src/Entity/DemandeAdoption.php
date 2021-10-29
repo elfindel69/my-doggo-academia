@@ -55,7 +55,7 @@ class DemandeAdoption
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateCreation;
+    private ?\DateTimeInterface $dateCreation;
 
     public function __construct()
     {

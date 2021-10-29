@@ -1,0 +1,35 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-4">
+                <a class=" btn btn-success">Voir les messages reçus</a>
+            </div>
+            <div class="col-4 d-flex align-items-center">
+                <h1 class="text-center">Hello {{ adoptant.nom }} !</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h2>Vos informations : </h2>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4 text-end">
+                <a class=" btn btn-primary">Modifier vos informations</a>
+            </div>
+        </div>
+        <br>
+
+        <h5>{{ adoptant.nom }}</h5>
+        <br>
+        <p>Email : {{ adoptant.email }}</p>
+        <p>{{ adoptant.adresse }} {{ adoptant.ville.nom }} {{ adoptant.ville.codePostal }}</p>
+        <p>{{ adoptant.telephone }}</p>
+
+    </div>
+
+
+{% endblock %}
