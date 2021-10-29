@@ -43,7 +43,6 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
 
     private ?string $plainPassword;
 
-    
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")

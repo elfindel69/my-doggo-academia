@@ -14,21 +14,8 @@ class AdoptantFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'email',
-                EmailType::class,
-                [
-                    'required' => true,
-                ]
-            )
-            ->add(
-                'password',
-                PassWordType::class, // On peut lui donner un type (ici, on dit que c'est un input de type text
-                [
-                    'required' => true, // On passe une option, pour préciser que ce champ est requis (ne doit pas être vide)
-                ]
-            )
-        ;
+            ->add('email', EmailType::class, ['required' => true])
+            ->add('plainPassword', PassWordType::class, ['required' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
