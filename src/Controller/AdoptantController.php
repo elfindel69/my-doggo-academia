@@ -9,18 +9,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdoptantController extends AbstractController
 {
 
-    public function __construct()
-    {
+    private UserPasswordHasherInterface $hasher;
 
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
     }
 
     /**
-     * @Route("/form-adoptant", name="formAdoptant")
+     * @Route("/sign-in", name="formAdoptant")
      */
     public function formAdoptant(Request $request, EntityManagerInterface $em): Response
     {
@@ -34,6 +37,7 @@ class AdoptantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $adoptant->setPassword($this->hasher->hashPassword($adoptant, $adoptant->getPlainPassword()));
             $em->persist($adoptant);
             $em->flush();
             return $this->redirectToRoute('default_index');
@@ -45,7 +49,7 @@ class AdoptantController extends AbstractController
     }
 
     /**
-     * @Route("/form-adoptant-update", name="updateAdoptant")
+     * @Route("/edit-account", name="updateAdoptant")
      */
     public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response 
     {
