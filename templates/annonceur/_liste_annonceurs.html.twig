@@ -6,13 +6,14 @@
     <h2 class="text-center">
         Liste des annonceurs
     </h2>
-    <div>
-        {% for annonceur in annonceurs %}
-            {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
-            {% if annonceur is not empty %}
-                {% include 'annonceur/_annonceur.html.twig' with { annonceur: annonceur } only %}
-            {% endif %}
-        {% endfor %}
+    <div class="container-fluid d-flex flex">
+        <div class="row mt-4 mb-4 align-content-center justify-content-center">
+            {% for annonceur in annonceurs %}
+                {# on utilise une condition et un test ici, pour vérifier que notre article n'est pas vide #}
+                {% if annonceur is not empty %}
+                    {% include 'annonceur/_annonceur.html.twig' with { annonceur: annonceur } only %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
-
 {% endblock %}
