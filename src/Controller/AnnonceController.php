@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
+use App\Entity\Chien;
 use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,4 +38,13 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    public function form(): Response
+    {
+
+
+        $annonce = new Annonce();
+        $chien = new Chien();
+        $annonce->addChien($chien);// pour avoir un premier chien dans le formulaire
+        return $this->render('annonce/form.html.twig');
+    }
 }
