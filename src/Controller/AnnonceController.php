@@ -7,6 +7,7 @@ use App\Entity\Chien;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,12 +43,13 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @return ("/nouvelleAnnonce", name="nouvelle_annonce")
+     * @Route ("/nouvelleAnnonce", name="nouvelle_annonce")
      */
     public function form(Request $request, EntityManagerInterface $em): Response
     {
         $annonce = new Annonce();
         $annonce->setDateCreation(new DateTime());
+        $annonce->setDateMaJ(new DateTime());
         $annonce->setAnnonceur($this->getUser());
         $chien = new Chien();
         $annonce->addChien($chien);// pour avoir un premier chien dans le formulaire
@@ -62,11 +64,15 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($annonce);
             $em->flush();
-
             $this->addFlash('success', 'Annonce ajoutée avec succès');
-            return $this->redirectToRoute('/annonce/'.$annonce->getId());
+            return $this->redirectToRoute('annonces_single_annonce' ,
+                [
+                   "id" => $annonce->getId()
+                ]);
         }
 
-        return $this->render('annonce/form.html.twig');
+        return $this->render('annonce/_new_annonce_form.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

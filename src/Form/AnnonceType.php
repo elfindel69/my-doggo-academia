@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +16,10 @@ class AnnonceType extends AbstractType
             ->add('titre')
             ->add('description')
             ->add(
-                'chien',
-                ChienType::class,
+                'chiens',
+                CollectionType::class,
                 [
-                    'required' => true,
+                    'entry_type' => ChienType::class,
                 ]
             );
     }
