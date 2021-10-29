@@ -59,4 +59,4 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN}
-        - { path: ^/moncompte/\d+$, roles: ROLE_USER}
+        - { path: ^/moncompte$, roles: ROLE_USER}

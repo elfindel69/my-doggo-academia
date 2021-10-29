@@ -16,7 +16,7 @@
                             <a class="nav-link" href="{{path('annonces_annonces')}}">Liste des annonces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('annonceurs_annonceurs')}}">Liste des annonceurs</a>
+                            <a class="nav-link" href="{{path('annonceurs_liste')}}">Liste des annonceurs</a>
                         </li>
                         {%  if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
@@ -25,7 +25,7 @@
                         {% endif %}
                         {%  if is_granted('ROLE_ANNONCEUR') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('annonceur_account',{id:app.user.id})}}">Mon compte</a>
+                                <a class="nav-link" href="{{path('annonceur_account')}}">Mon compte</a>
                             </li>
                         {% endif %}
                         {% if app.user %}
