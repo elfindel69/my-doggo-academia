@@ -12,9 +12,15 @@
 </head>
 
 <body>
+
 {# Ici, nous définissons un ensemble de blocs, qui seront modifiables dans les templates qui héritent de templates/base.html.twig #}
-{% include 'header.html.twig' %}
-{% block body %}{% endblock body %}
+{% block head %}
+    {% include 'header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+{% endblock body %}
+
 {% include 'footer.html.twig' %}
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

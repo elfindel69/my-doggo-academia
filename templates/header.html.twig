@@ -18,9 +18,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('annonceurs_annonceurs')}}">Liste des annonceurs</a>
                         </li>
+                        {%  if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('admin')}}">Page admin</a>
+                            </li>
+                        {% endif %}
+                        {%  if is_granted('ROLE_ANNONCEUR') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{path('annonceur_account',{id:app.user.id})}}">Mon compte</a>
+                            </li>
+                        {% endif %}
                         {% if app.user %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('app_logout')}}">Déonnexion</a>
+                                <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
