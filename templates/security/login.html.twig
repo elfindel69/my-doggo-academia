@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block head %}
 
+{% endblock %}
 {% block body %}
 <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;"> 
     <div class="col-6">
@@ -10,7 +12,7 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Vous êtes connecté.e avec le compte {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        Vous êtes connecté.e avec le compte {{ app.user.email }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
                     </div>
                 {% endif %}
 
