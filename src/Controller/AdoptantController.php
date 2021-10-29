@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Adoptant;
 use App\Form\AdoptantCompleteFormType;
 use App\Form\AdoptantFormType;
+use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,16 @@ class AdoptantController extends AbstractController
 
         return $this->render('adoptant/updateAdoptant.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/moncompte", name="adoptant_account")
+     */
+    public function adoptant_account(): Response
+    {
+        return $this->render("adoptant/adoptant_account.html.twig", [
+            'adoptant' =>  $this->getUser()
         ]);
     }
 }
