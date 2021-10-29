@@ -48,7 +48,8 @@ class AdoptantCrudController extends AbstractCrudController
         return [
             TextField::new('nom'),
             EmailField::new('email'),
-            TextField::new('plainPassword'),
+            TextField::new('plainPassword','Mot de passe')->setRequired(true)->onlyWhenCreating(),
+            TextField::new('plainPassword','Mot de passe')->setRequired(false)->onlyWhenUpdating(),
             TextField::new('adresse'),
             TelephoneField::new('telephone'),
             AssociationField::new('ville')

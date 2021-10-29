@@ -2,6 +2,7 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     role_hierarchy:
+        ROLE_USER: [ROLE_ADOPTANT,ROLE_ANNONCEUR]
         ROLE_ADMIN:         ROLE_USER 
         ROLE_SUPER_ADMIN:   [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
@@ -56,3 +57,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN}

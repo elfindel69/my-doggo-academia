@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class AdminCrudController extends AbstractCrudController
@@ -45,8 +46,9 @@ class AdminCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-           'email',
-            'plainPassword',
+            EmailField::new('email'),
+            TextField::new('plainPassword','Mot de passe')->setRequired(true)->onlyWhenCreating(),
+            TextField::new('plainPassword','Mot de passe')->setRequired(false)->onlyWhenUpdating()
         ];
     }
 

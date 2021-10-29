@@ -174,7 +174,6 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
         $this->plainPassword = $plainPassword;
     }
 
-    /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -241,7 +240,8 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     public function addMessagesEnvoye(Message $messagesEnvoye): self
     {
         if (!$this->messagesEnvoyes->contains($messagesEnvoye)) {
-            $this->messagesEnvoyes[] = $messagesEnvoye;
+
+          $this->messagesEnvoyes[] = $messagesEnvoye;
             $messagesEnvoye->setExpediteur($this);
         }
 

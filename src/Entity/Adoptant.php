@@ -16,13 +16,22 @@ class Adoptant extends Utilisateur
     /**
      * @ORM\OneToMany(targetEntity=DemandeAdoption::class, mappedBy="adoptant")
      */
-    private $demandeAdoptions;
+    private Collection $demandeAdoptions;
 
     public function __construct()
     {
+        parent::__construct();
         $this->demandeAdoptions = new ArrayCollection();
     }
 
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADOPTANT';
+        return array_unique($roles);
+    }
     /**
      * @return Collection|DemandeAdoption[]
      */
