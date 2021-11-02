@@ -40,6 +40,10 @@ class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implemen
             $annonceur->setVille($villes[$rand]);
 
             $annonceur->setTelephone("000000000".$i);
+            $roles = [];
+            $roles[] = 'ROLE_USER';
+            $roles[] = 'ROLE_ANNONCEUR';
+            $annonceur->setRoles($roles);
             $manager->persist($annonceur);
         }
 

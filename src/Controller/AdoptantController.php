@@ -24,7 +24,7 @@ class AdoptantController extends AbstractController
     }
 
     /**
-     * @Route("/sign-in", name="formAdoptant")
+     * @Route("/sign-in", name="adoptant_login")
      */
     public function formAdoptant(Request $request, EntityManagerInterface $em): Response
     {
@@ -38,6 +38,10 @@ class AdoptantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $roles = [];
+            $roles[] = 'ROLE_USER';
+            $roles[] = 'ROLE_ADOPTANT';
+            $adoptant->setRoles($roles);
             $adoptant->setPassword($this->hasher->hashPassword($adoptant, $adoptant->getPlainPassword()));
             $em->persist($adoptant);
             $em->flush();
@@ -50,7 +54,7 @@ class AdoptantController extends AbstractController
     }
 
     /**
-     * @Route("/edit-account", name="updateAdoptant")
+     * @Route("/edit-account", name="adoptant_update")
      */
     public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response 
     {
