@@ -32,7 +32,7 @@ class AdoptantCrudController extends AbstractCrudController
 
         // some actions may require to pass additional parameters
         $url = $this->adminUrlGenerator
-            ->setController(AnnonceurCrudController::class)
+            ->setController(AdoptantCrudController::class)
             ->setAction(Action::NEW)
             ->generateUrl();
         // ...
