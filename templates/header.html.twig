@@ -44,6 +44,14 @@
                         {% endif %}
                     </ul>
                 </div>
+                <span class="navbar-text">
+                    {%  if is_granted('ROLE_ANNONCEUR') %}
+                        Connecté en tant que {{ app.user.nom }} (annonceur)
+                    {% endif %}
+                    {% if is_granted('ROLE_ADOPTANT') %}
+                        Connecté en tant que {{ app.user.nom }} (adoptant)
+                    {% endif %}
+                </span>
             </div>
         </nav>
     </header>
