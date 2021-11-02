@@ -87,7 +87,7 @@ class Chien
     private ?string $sexe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true, cascade={"persist"})
      */
     private $photos;
 

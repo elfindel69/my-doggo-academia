@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'form/theme.html.twig' %}
+
+{% block body %}
+
+    <script type="text/javascript">
+        const addFormToCollection = (e) => {
+            e.preventDefault();
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('div');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.widgetCounter
+                );
+
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.widgetCounter++;
+        }
+    </script>
+    <div class="container">
+
+        <div class="text-center">
+            <h2>Créer une annonce</h2>
+        </div>
+
+        <div class="d-flex my-4 justify-content-center">
+            {{ form_start(form, {
+                attr: {
+                    class: 'col-6'
+                }
+            }) }}
+
+            {{ form_rest(form) }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary my-4">Valider</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}
+

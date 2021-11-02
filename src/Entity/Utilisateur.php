@@ -46,7 +46,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Length(max = 255, min = 8, minMessage = "Votre mot de passe doit faire au moins {{ limit }} caractères")
+     * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
      */
     protected string $password;
 

@@ -2,8 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
+use App\Entity\Annonceur;
+use App\Entity\Chien;
+use App\Entity\Photo;
+use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,4 +44,40 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route ("/nouvelleAnnonce", name="nouvelle_annonce")
+     */
+    public function form(Request $request, EntityManagerInterface $em): Response
+    {
+        $annonce = new Annonce();
+        $annonce->setDateCreation(new DateTime());
+        $annonce->setDateMaJ(new DateTime());
+        /** @var Annonceur $annonceur */
+        $annonceur = $this->getUser();
+        $annonce->setAnnonceur($annonceur);
+        $annonce->setAPourvoir(true);
+        $chien = new Chien();
+        $annonce->addChien($chien);// pour avoir un premier chien dans le formulaire
+
+        $form = $this->createForm(AnnonceType::class, $annonce, [
+            'method' => 'post',
+            // rajouter une action
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($annonce);
+            $em->flush();
+            $this->addFlash('success', 'Annonce ajoutée avec succès');
+            return $this->redirectToRoute('annonces_single_annonce' ,
+                [
+                   "id" => $annonce->getId()
+                ]);
+        }
+
+        return $this->render('annonce/_new_annonce_form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

@@ -7,7 +7,7 @@
         </a>
     </div>
 
-    {%  if annonce.chiens is not empty  %}
+    {%  if annonce.chiens is not empty and annonce.chiens[0].photos is not empty %}
         <img src="{{ annonce.chiens[0].photos[0].url }}" class="card-img-top" alt="">
     {% endif %}
 
