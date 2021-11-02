@@ -7,7 +7,9 @@
         <header class="row my-4">
             <div class="col-4"></div>
             <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
+            {% if app.user and is_granted('ROLE_ADOPTANT') %}
             <div class="col-4 text-end"><button class="btn btn-success">Adopter un iench</button></div>
+            {% endif %}
         </header>
                 <div class="text-center">
                     <p>{{ annonce.description }}</p>
@@ -18,7 +20,9 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="text-center my-4"><button class="btn btn-success">Adopter un iench</button></div>   
+        {% if app.user and is_granted('ROLE_ADOPTANT') %}
+        <div class="text-center my-4"><button class="btn btn-success">Adopter un iench</button></div>
+        {% endif %}
     </article>
 {% endblock %}
 

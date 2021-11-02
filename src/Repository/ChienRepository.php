@@ -47,4 +47,17 @@ class ChienRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findWithAnnonce(int $id)
+    {
+        return $this->createQueryBuilder('c')
+             ->addSelect([
+                 'an'
+             ])
+            ->innerJoin('c.annonce','an')
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+
+    }
 }
