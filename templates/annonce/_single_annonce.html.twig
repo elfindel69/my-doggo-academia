@@ -9,6 +9,7 @@
             <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
             {% if is_granted('ROLE_ADOPTANT') %}
                 <div class="col-4 text-end"><button class="btn btn-success">Adopter un iench</button></div>
+
             {% endif %}
         </header>
                 <div class="text-center">
@@ -22,6 +23,7 @@
         </div>
         {% if is_granted('ROLE_ADOPTANT') %}
           <div class="text-center my-4"><button class="btn btn-success">Adopter un iench</button></div>
+
         {% endif %}
     </article>
 {% endblock %}

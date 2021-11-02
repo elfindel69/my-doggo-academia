@@ -34,10 +34,9 @@
             {% for annonce in annonces %}
                 <tr>
                     <td>{{ annonce.titre }}</td>
-                    {% if annonce.chiens|length == 0 %}
+                    {% if not annonce.aPourvoir or annonce.chiens|length == 0 %}
                         <td>Tous les chiens ont étés adoptés !</td>
-                    {% endif %}
-                    {% if annonce.chiens|length > 0 %}
+                    {% else %}
                         <td>{{ annonce.chiens|length }}</td>
                     {% endif %}
                     <td>{{ annonce.dateCreation|date('d/m/y') }}</td>
