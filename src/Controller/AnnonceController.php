@@ -10,6 +10,7 @@ use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AnnonceController extends AbstractController
 {
+
     /**
      * @Route("/annonces", name="annonces_annonces")
      */
@@ -42,6 +44,21 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/_single_annonce.html.twig', [
             'annonce' => $annonce
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete_annonce", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_ANNONCEUR")
+     */
+    public function delete(EntityManagerInterface $em, Annonce $annonce): Response{
+        $annonceur = $this->getUser();
+
+        if($annonce->getAnnonceur()->getId() == $annonceur->getId()) {
+            $em->remove($annonce);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('annonceur_account');
     }
 
     /**

@@ -45,7 +45,7 @@
                     <td>
                         <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-outline-success">Voir</a>
                         <a href="#" class="btn btn-outline-primary">Editer</a>
-                        <a href="#" class="btn btn-outline-danger">Suppr</a>
+                        <a href="{{path('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Suppr</a>
                     </td>
                 </tr>
             {% endfor %}

@@ -30,7 +30,7 @@ class Annonce
     private ?string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $chiens;
 
