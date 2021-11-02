@@ -80,6 +80,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->leftJoin("c.races", "r")
             ->andWhere('a.aPourvoir = :aPourvoir')
             ->setParameter('aPourvoir',true)
+           ->andWhere('a.chiens.count > 0')
             ->andWhere('a.annonceur = :annonceur')
             ->setParameter('annonceur',$annonceur)
             ->getQuery()
