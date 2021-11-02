@@ -44,7 +44,7 @@
     {% set adoptant_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AdoptantCrudController')
         .setAction('new') %}
-    <p><strong>{{ nbAdoptants }}</strong> Adoptants enregistrés - <a href="{{ admin_url_new }}">Créer un Adoptant</a></p>
+    <p><strong>{{ nbAdoptants }}</strong> Adoptants enregistrés - <a href="{{ adoptant_url_new }}">Créer un Adoptant</a></p>
     {% set annonceur_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AnnonceurCrudController')
         .setAction('new') %}
