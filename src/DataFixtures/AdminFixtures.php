@@ -23,7 +23,11 @@ class AdminFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture
         $admin->setEmail('admin@admin.fr');
         $pwd = $this->hasher->hashPassword($admin, 'admin');
         $admin->setPassword($pwd);
-
+        $roles = [];
+        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADMIN';
+        $roles[] = 'ROLE_SUPER_ADMIN';
+        $admin->setRoles($roles);
         $manager->persist($admin);
         $manager->flush();
     }

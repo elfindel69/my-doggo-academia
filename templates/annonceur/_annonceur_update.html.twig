@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="text-center"><h2>Mon Compte</h2></div>
+
+        <div class="d-flex my-4 justify-content-center">
+
+            {{ form_start(form) }}
+
+            {{ form_row(form.email) }}
+
+            <div class="row">
+                <div class="col-6"> {{ form_row(form.nom) }} </div>
+                <div class="col-6"> {{ form_row(form.telephone) }} </div>
+            </div>
+
+            {{form_row(form.adresse)}}
+
+            {{form_row(form.ville)}}
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

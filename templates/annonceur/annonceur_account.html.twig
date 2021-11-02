@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for annonce in annonceur %}
+            {% for annonce in annonces %}
                 <tr>
                     <td>{{ annonce.titre }}</td>
                     {% if annonce.chiens|length == 0 %}
@@ -59,7 +59,7 @@
             </div>
             <div class="col-4"></div>
             <div class="col-4 text-end">
-                <a class=" btn btn-primary">Modifier vos informations</a>
+                <a href="{{ path("annonceur_update") }}" class=" btn btn-primary">Modifier vos informations</a>
             </div>
         </div>
         <br>

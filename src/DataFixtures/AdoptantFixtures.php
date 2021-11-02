@@ -40,6 +40,10 @@ class AdoptantFixtures extends Fixture implements DependentFixtureInterface
             $adoptant->setVille($villes[$rand]);
 
             $adoptant->setTelephone("000000000".$i);
+            $roles = [];
+            $roles[] = 'ROLE_USER';
+            $roles[] = 'ROLE_ADOPTANT';
+            $adoptant->setRoles($roles);
             $manager->persist($adoptant);
         }
         $manager->flush();

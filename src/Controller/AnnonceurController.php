@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Annonceur;
+use App\Form\AdoptantCompleteFormType;
+use App\Form\AnnonceurCompleteFormType;
 use App\Repository\AnnonceRepository;
 use App\Repository\AnnonceurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,7 +45,7 @@ class AnnonceurController extends AbstractController
         ]);
     }
     /**
-     * @Route("/moncompte", name="annonceur_account")
+     * @Route("/moncompte-annonceur", name="annonceur_account")
      */
     public function annonceur_account(AnnonceRepository $annonceRepository): Response
     {
@@ -54,6 +58,33 @@ class AnnonceurController extends AbstractController
         return $this->render("annonceur/annonceur_account.html.twig", [
             'annonceur' => $annonceur,
             'annonces' => $annonces
+        ]);
+    }
+
+    /**
+     * @Route("/edit-account-annonceur", name="annonceur_update")
+     */
+    public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response
+    {
+        $annonceur = $this->getUser();
+
+        $form = $this->createForm(AnnonceurCompleteFormType::class, $annonceur, [
+            'method' => 'post'
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($annonceur);
+            $em->flush();
+
+            $this->addFlash('success', 'Compte mis à jour ! 👍');
+
+            return $this->redirectToRoute('default_index');
+        }
+
+        return $this->render('annonceur/_annonceur_update.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
