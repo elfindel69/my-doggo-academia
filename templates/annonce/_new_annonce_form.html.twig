@@ -3,6 +3,25 @@
 {% form_theme form 'form/theme.html.twig' %}
 
 {% block body %}
+
+    <script type="text/javascript">
+        const addFormToCollection = (e) => {
+            e.preventDefault();
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('div');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.widgetCounter
+                );
+
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.widgetCounter++;
+        }
+    </script>
     <div class="container">
 
         <div class="text-center">
@@ -24,28 +43,5 @@
         </div>
 
     </div>
-
-    <script>
-        const addFormToCollection = (e) => {
-            e.preventDefault();
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-            const item = document.createElement('div');
-
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    collectionHolder.dataset.widgetCounter
-                );
-
-            collectionHolder.appendChild(item);
-            collectionHolder.dataset.widgetCounter++;
-        }
-
-        document.querySelectorAll('.add').forEach((element) => {
-            element.addEventListener("click", addFormToCollection);
-        })
-    </script>
 {% endblock %}
 

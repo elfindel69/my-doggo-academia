@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Annonceur;
 use App\Entity\Chien;
 use App\Entity\Photo;
 use App\Form\AnnonceType;
@@ -51,11 +52,11 @@ class AnnonceController extends AbstractController
         $annonce = new Annonce();
         $annonce->setDateCreation(new DateTime());
         $annonce->setDateMaJ(new DateTime());
-        $annonce->setAnnonceur($this->getUser());
+        /** @var Annonceur $annonceur */
+        $annonceur = $this->getUser();
+        $annonce->setAnnonceur($annonceur);
         $annonce->setAPourvoir(true);
-        $photo = new Photo();
         $chien = new Chien();
-        $chien->addPhoto($photo);
         $annonce->addChien($chien);// pour avoir un premier chien dans le formulaire
 
         $form = $this->createForm(AnnonceType::class, $annonce, [
