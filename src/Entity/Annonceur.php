@@ -101,7 +101,7 @@ class Annonceur extends Utilisateur
         $cpt = 0;
 
         foreach ($this->getAnnonces() as $annonce) {
-            if ($annonce->getAnnonceur()) {
+            if ($annonce->getAnnonceur() && $annonce->getAPourvoir() == true) {
                 $cpt++;
             }
         }
@@ -112,7 +112,7 @@ class Annonceur extends Utilisateur
         $cpt = 0;
 
         foreach ($this->getAnnonces() as $annonce) {
-            if (!$annonce->getAnnonceur()) {
+            if ($annonce->getAnnonceur() && $annonce->getAPourvoir() == false) {
                 $cpt++;
             }
         }

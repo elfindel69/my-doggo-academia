@@ -68,14 +68,15 @@ class AnnonceRepository extends ServiceEntityRepository
     {
        return $this->createQueryBuilder("a")
             ->distinct()
-            ->addSelect(['an',
+            ->addSelect([
+                'an',
                 'c',
                 'r',
                 'p'])
-            ->innerJoin("a.annonceur",'an')
-            ->innerJoin("a.chiens", "c")
-            ->innerJoin("c.photos", "p")
-            ->innerJoin("c.races", "r")
+            ->leftJoin("a.annonceur",'an')
+            ->leftJoin("a.chiens", "c")
+            ->leftJoin("c.photos", "p")
+            ->leftJoin("c.races", "r")
             ->andWhere('a.aPourvoir = :aPourvoir')
             ->setParameter('aPourvoir',true)
             ->andWhere('a.annonceur = :annonceur')
@@ -83,6 +84,5 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 
 }

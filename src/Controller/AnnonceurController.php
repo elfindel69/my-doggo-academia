@@ -19,6 +19,12 @@ class AnnonceurController extends AbstractController
     {
         $annonceur = $annonceurRepository->find($id);
         $annonces = $annonceRepository->findAnnoncesAPourvoir($annonceur);
+
+//        $annonces2 = $annonceRepository->findBy(
+//            ['annonceur' => $annonceur,
+//                'aPourvoir' => true]
+//        );
+
         return $this->render('annonceur/_single_annonceur.html.twig', [
             'annonceur' => $annonceur,
             'annonces' => $annonces,
