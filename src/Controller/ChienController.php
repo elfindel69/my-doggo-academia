@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Chien;
 use App\Form\ChienType;
+use App\Repository\ChienRepository;
+use App\Service\AnnonceService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,5 +41,20 @@ class ChienController extends AbstractController
         return $this->render('chien/index.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     *
+     * @Route("/chien_adopter/{id}", name="chien_adopter", requirements={"id"="\d+"})
+     *
+     */
+    public function adopter(Chien $chien,EntityManagerInterface $em,AnnonceService $annonceService):Response{
+
+        $chien->setAdopte(true);
+        $em->persist($chien);
+        $em->flush();
+        $annonce = $chien->getAnnonce();
+        $annonceService->checkAnnonceAPourvoir($annonce->getId());
+        return  $this->redirectToRoute("annonces_single_annonce",['id' => $annonce->getId()]);
     }
 }
