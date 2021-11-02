@@ -7,7 +7,10 @@
         <header class="row my-4">
             <div class="col-4"></div>
             <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
-            <div class="col-4 text-end"><button class="btn btn-success">Adopter un iench</button></div>
+            {% if is_granted('ROLE_ADOPTANT') %}
+                <div class="col-4 text-end"><button class="btn btn-success">Adopter un iench</button></div>
+
+            {% endif %}
         </header>
                 <div class="text-center">
                     <p>{{ annonce.description }}</p>
