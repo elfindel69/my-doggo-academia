@@ -34,7 +34,7 @@ class DemandeAdoption
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandeAdoption")
      */
-    private ArrayCollection $chiens;
+    private Collection $chiens;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -48,9 +48,9 @@ class DemandeAdoption
     private ?Annonce $annonce;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption", cascade={"persist"}, orphanRemoval=true)
      */
-    private ArrayCollection $messages;
+    private Collection $messages;
 
     /**
      * @ORM\Column(type="datetime")

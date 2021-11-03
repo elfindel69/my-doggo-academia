@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\DemandeAdoption;
+use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
 use DateTime;
@@ -37,6 +38,23 @@ class DemandeAdoptionController extends AbstractController
                 ->setAnnonceur($annonce->getAnnonceur())
                 ->setDateCreation(new DateTime())
             ;
+
+            $message = new Message();
+            $message
+                ->setDateEnvoi(new DateTime())
+                ->setEstLu(false)
+                ->setExpediteur($demandeAdoption->getAdoptant())
+                ->setDestinataire($demandeAdoption->getAnnonceur())
+                ->setDemandeAdoption($demandeAdoption)
+                ->setContenu('Bonjour, je souhaite des informations')
+            ;
+
+            $demandeAdoption->addMessage($message);
+
+            $em->persist($demandeAdoption);
+            $em->flush();
+
+            return $this->redirectToRoute('default_index');
         }
 
         return $this->render('demande_adoption/form_demande.twig', [

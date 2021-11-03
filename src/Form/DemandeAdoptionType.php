@@ -20,6 +20,7 @@ class DemandeAdoptionType extends AbstractType
                 'class' => Chien::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
+                'expanded' => true,
                 'required' => true,
                 'query_builder' => function (ChienRepository $repo) use($id){
                     return $repo->findChienNonAdopteFromAnnonceId($id);  
