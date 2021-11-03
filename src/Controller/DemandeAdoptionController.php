@@ -9,6 +9,7 @@ use App\Repository\AnnonceRepository;
 use App\Repository\DemandeAdoptionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,5 +72,20 @@ class DemandeAdoptionController extends AbstractController
         return $this->render('demande_adoption/single_demande.twig', [
             'demande' => $demandeAdoption
         ]);
+    }
+
+    /**
+     * @Route("/delete_demande/{id}", name="delete_demande", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_ANNONCEUR")
+     */
+    public function delete_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
+        $annonceur = $this->getUser();
+
+        if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
+            $em->remove($demandeAdoption);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('annonceur_account');
     }
 }
