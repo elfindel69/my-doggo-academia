@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Chien;
 use App\Entity\DemandeAdoption;
+use App\Entity\Message;
 use App\Repository\ChienRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,6 +28,14 @@ class DemandeAdoptionType extends AbstractType
                     return $repo->findChienNonAdopteFromAnnonceId($id);  
                 }
             ])
+            ->add('messages',CollectionType::class,
+                [
+                    'entry_type' => EnvoiMessageType::class,
+                    'required' => true,
+                    'by_reference' => false,
+                    'label'=>false,
+                    'entry_options' => ["label"=>false]
+                ])
         ;
     }
 

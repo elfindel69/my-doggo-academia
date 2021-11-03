@@ -23,6 +23,8 @@ class DemandeAdoptionController extends AbstractController
     public function adoption_request(Request $request, EntityManagerInterface $em, int $id, AnnonceRepository $annonceRepository): Response
     {
         $demandeAdoption = new DemandeAdoption();
+        $message = new Message();
+        $demandeAdoption->addMessage($message);
         $annonce = $annonceRepository->find($id);
 
         $form = $this->createForm(DemandeAdoptionType::class, $demandeAdoption, [
@@ -41,14 +43,12 @@ class DemandeAdoptionController extends AbstractController
                 ->setDateCreation(new DateTime())
             ;
 
-            $message = new Message();
+
             $message
                 ->setDateEnvoi(new DateTime())
                 ->setEstLu(false)
                 ->setExpediteur($demandeAdoption->getAdoptant())
                 ->setDestinataire($demandeAdoption->getAnnonceur())
-                ->setDemandeAdoption($demandeAdoption)
-                ->setContenu('Bonjour, je souhaite des informations')
             ;
 
             $demandeAdoption->addMessage($message);
@@ -56,7 +56,7 @@ class DemandeAdoptionController extends AbstractController
             $em->persist($demandeAdoption);
             $em->flush();
 
-            return $this->redirectToRoute('default_index');
+            return $this->redirectToRoute('single_demande_adoption',['id'=>$demandeAdoption->getId()]);
         }
 
         return $this->render('demande_adoption/form_demande.twig', [
