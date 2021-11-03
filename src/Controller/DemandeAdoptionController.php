@@ -88,4 +88,33 @@ class DemandeAdoptionController extends AbstractController
 
         return $this->redirectToRoute('annonceur_account');
     }
+
+    /**
+     * @Route("/validation_demande/{id}", name="validation_demande", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_ANNONCEUR")
+     */
+    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
+
+        if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
+            $demandeAdoption->setAcceptee(true);
+            foreach ($demandeAdoption->getChiens() as $chien) {
+                $chien->setAdopte(true);
+            }
+            $em->persist($demandeAdoption);
+            $pourvue = true;
+            foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien){
+                if ($chien->getAnnonce() == false) {
+                    $pourvue = false;
+                }
+            }
+            if($pourvue) {
+                $demandeAdoption->getAnnonce()->setAPourvoir(false);
+                $em->persist($demandeAdoption->getAnnonce());
+            }
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('annonceur_account');
+    }
+
 }

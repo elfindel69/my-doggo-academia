@@ -56,7 +56,9 @@ class AnnonceurController extends AbstractController
             ['dateCreation' => 'DESC']
         );
 
-        $demandesAdoption = $demandeAdoptionRepository->findBy(['annonceur' => $annonceur]);
+        $demandesAdoption = $demandeAdoptionRepository->findBy([
+            'annonceur' => $annonceur,
+            'acceptee' => false]);
 
         return $this->render("annonceur/annonceur_account.html.twig", [
             'annonceur' => $annonceur,
