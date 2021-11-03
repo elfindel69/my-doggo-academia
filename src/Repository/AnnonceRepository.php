@@ -86,5 +86,4 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }

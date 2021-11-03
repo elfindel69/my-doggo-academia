@@ -23,7 +23,8 @@ class DemandeAdoptionController extends AbstractController
         $annonce = $annonceRepository->find($id);
 
         $form = $this->createForm(DemandeAdoptionType::class, $demandeAdoption, [
-            'method' => 'post', 
+            'method' => 'post',
+            'id' => $id
         ]);
 
         $form->handleRequest($request);
