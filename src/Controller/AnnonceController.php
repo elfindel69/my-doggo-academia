@@ -59,7 +59,37 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('annonceur_account');
     }
 
-   /**
+    /**
+     * @Route("/update-annonce/{id}", name="update_annonce", requirements={"id"="\d+"})
+     * @IsGranted("ROLE_ANNONCEUR")
+     */
+    public function update(EntityManagerInterface $em,
+                           Request $request,
+                           AnnonceRepository $annonceRepository, int $id): Response {
+        $annonce = $annonceRepository->find($id);
+
+        $form = $this->createForm(AnnonceType::class, $annonce, [
+            'method' => 'post'
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($annonce);
+            $em->flush();
+
+            $this->addFlash('success', 'Annonce modifiée !');
+
+            return $this->redirectToRoute('annonceur_account');
+        }
+
+        return $this->render('annonce/_new_annonce_form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+
      * @Route ("/nouvelleAnnonce", name="nouvelle_annonce")
      */
     public function form(Request $request, EntityManagerInterface $em): Response

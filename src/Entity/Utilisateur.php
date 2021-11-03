@@ -41,6 +41,10 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      */
     protected array $roles = [];
 
+    /**
+     * @var string|null
+     * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
+     */
     private ?string $plainPassword;
 
     /**

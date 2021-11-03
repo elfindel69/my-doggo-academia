@@ -6,6 +6,7 @@ use App\Repository\AnnonceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
@@ -31,6 +32,7 @@ class Annonce
 
     /**
      * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce", cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private Collection $chiens;
 

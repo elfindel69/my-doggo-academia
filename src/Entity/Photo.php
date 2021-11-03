@@ -21,12 +21,13 @@ class Photo
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(max = 128, min = 3, minMessage = "Votre mot de passe doit faire au moins {{ limit }} caractères")
+     * @Assert\Length(max = 128, min = 3, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage = "Le nom de la photo doit faire maximum {{ limit }} caractères")
      */
     private ?string $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max = 128, maxMessage = "L'url' photo doit faire maximum {{ limit }} caractères")
      */
     private ?string $url;
 

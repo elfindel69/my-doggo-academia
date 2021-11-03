@@ -86,6 +86,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
     public function findWithRelations()
     {
         return $this->createQueryBuilder("a")

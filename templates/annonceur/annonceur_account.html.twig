@@ -43,6 +43,7 @@
                     <td>{{ annonce.dateMaJ|date('d/m/y') }}</td>
                     <td>
                         <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-outline-success">Voir</a>
+                        <a href="{{path('update_annonce',{id:annonce.id})}}" class="btn btn-outline-primary">Editer</a>
                         <a href="{{path('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Suppr</a>
                     </td>
                 </tr>
