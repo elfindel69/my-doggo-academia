@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Mes messages</h2>
+    <div class="container d-flex flex">
+        {% for message in messages %}
+            {% include 'message/single_message.html.twig' with {message: message } only %}
+        {% endfor %}
+
+    </div>
+    <a class="btn btn-primary">Envoyer un message</a>
+{% endblock %}
+
