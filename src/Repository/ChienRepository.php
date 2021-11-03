@@ -48,4 +48,15 @@ class ChienRepository extends ServiceEntityRepository
     }
     */
 
+    public function findChienNonAdopteFromAnnonceId($annonceId)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('a')
+            ->leftJoin('c.annonce', 'a')
+            ->andWhere('a.id = :id')
+            ->setParameter('id', $annonceId)
+            ->andWhere('c.adopte = :false')
+            ->setParameter('false', false)
+        ;
+    }
 }
