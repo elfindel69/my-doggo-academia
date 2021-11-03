@@ -3,25 +3,6 @@
 {% form_theme form 'form/theme.html.twig' %}
 
 {% block body %}
-
-    <script type="text/javascript">
-        const addFormToCollection = (e) => {
-            e.preventDefault();
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-            const item = document.createElement('div');
-
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    collectionHolder.dataset.widgetCounter
-                );
-
-            collectionHolder.appendChild(item);
-            collectionHolder.dataset.widgetCounter++;
-        }
-    </script>
     <div class="container">
 
         <div class="text-center">
@@ -41,7 +22,33 @@
             </div>
             {{ form_end(form) }}
         </div>
-
     </div>
+    <script type="text/javascript">
+        const addFormToCollection = (e) => {
+            e.preventDefault();
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('div');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.widgetCounter
+                );
+
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.widgetCounter++;
+            document
+                .querySelectorAll('.add')
+                .forEach(btn => {
+                    btn.removeEventListener('click', addFormToCollection);
+                    btn.addEventListener("click", addFormToCollection);
+                });
+        }
+        document
+            .querySelectorAll('.add')
+            .forEach(btn => btn.addEventListener("click", addFormToCollection));
+    </script>
 {% endblock %}
 
