@@ -59,7 +59,7 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('annonceur_account');
     }
 
-    /**
+   /**
      * @Route ("/nouvelleAnnonce", name="nouvelle_annonce")
      */
     public function form(Request $request, EntityManagerInterface $em): Response
@@ -94,5 +94,17 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/_new_annonce_form.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route ("/demandeAdoption/{id}", name="demandeAdoption", requirements={"id"="\d+"})
+     */
+    public function demandeAdoption(int $id):Response{
+        $user = $this->getUser();
+        if($user){
+            return $this->redirectToRoute('demande_adoption',["id"=>$id]);
+        }
+        else{
+            return $this->redirectToRoute('adoptant_login');
+        }
     }
 }
