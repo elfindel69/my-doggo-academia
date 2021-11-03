@@ -206,4 +206,15 @@ class Annonce
 
         return $this;
     }
+
+    public function getNbChiensDispo(): int {
+        $cpt=0;
+        foreach($this->chiens as $chien){
+            if ($chien->getAdopte() == false) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
+
 }
