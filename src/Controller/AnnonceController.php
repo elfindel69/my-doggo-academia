@@ -25,9 +25,7 @@ class AnnonceController extends AbstractController
      */
     public function index(AnnonceRepository $annonceRepository): Response
     {
-        $annonces2 = $annonceRepository->findBy(
-            ['aPourvoir' => true]
-        );
+        $annonces2 = $annonceRepository->findWithRelations();
 
         $annonces = $annonceRepository->findAll();
         return $this->render('annonce/_liste_annonces.html.twig', [
