@@ -102,6 +102,7 @@ class AnnonceController extends AbstractController
         $annonce->setAnnonceur($annonceur);
         $annonce->setAPourvoir(true);
         $chien = new Chien();
+        $chien->setAdopte(false);
         $annonce->addChien($chien);// pour avoir un premier chien dans le formulaire
 
         $form = $this->createForm(AnnonceType::class, $annonce, [
