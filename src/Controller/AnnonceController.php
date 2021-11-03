@@ -126,12 +126,13 @@ class AnnonceController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/demandeAdoption/{id}", name="demandeAdoption", requirements={"id"="\d+"})
+     * @Route ("/checkDemandeAdoption/{id}", name="demandeAdoption", requirements={"id"="\d+"})
      */
     public function demandeAdoption(int $id):Response{
         $user = $this->getUser();
+
         if($user){
-            return $this->redirectToRoute('demande_adoption',["id"=>$id]);
+            return $this->redirectToRoute('demande_adoption',array("id"=>$id));
         }
         else{
             return $this->redirectToRoute('adoptant_login');
