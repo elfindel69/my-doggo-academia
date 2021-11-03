@@ -33,7 +33,7 @@
             {% for annonce in annonces %}
                 <tr>
                     <td>{{ annonce.titre }}</td>
-                    {% if annonce.chiens|length == 0 %}
+                    {% if annonce.getNbChiensDispo() == 0 %}
                         <td>Tous les chiens ont étés adoptés !</td>
                     {% else %}
                         <td>{{ annonce.getNbChiensDispo() }}</td>
