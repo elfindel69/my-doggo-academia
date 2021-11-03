@@ -75,8 +75,8 @@
                     <td>{{ demande.dateCreation|date('d/m/y') }}</td>
                     <td>{{ demande.adoptant.nom }}</td>
                     <td>
-                        <a href="#" class="btn btn-outline-primary">Voir la demande</a>
-                        <a href="#" class="btn btn-outline-primary">Voir les messages</a>
+                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
+                        <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
                         <a href="{{path('validation_demande',{id:demande.id})}}" class="btn btn-outline-success">Valider</a>
                         <a href="{{path('delete_demande',{id:demande.id})}}" class="btn btn-outline-danger">Suppr</a>
                     </td>
