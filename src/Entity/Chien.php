@@ -6,6 +6,7 @@ use App\Repository\ChienRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ChienRepository::class)
@@ -68,6 +69,7 @@ class Chien
 
     /**
      * @ORM\ManyToMany(targetEntity=Race::class, inversedBy="chiens")
+     * @Assert\Valid()
      */
     private Collection $races;
 
@@ -88,6 +90,7 @@ class Chien
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true, cascade={"persist"})
+     * @Assert\Valid()
      */
     private $photos;
 
