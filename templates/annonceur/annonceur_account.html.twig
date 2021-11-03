@@ -6,7 +6,6 @@
 
         <div class="row">
             <div class="col-4">
-                <a class=" btn btn-success">Voir les messages reçus</a>
             </div>
             <div class="col-4 d-flex align-items-center">
                 <h1 class="text-center">Hello {{ annonceur.nom }} !</h1>
@@ -51,6 +50,42 @@
             </tbody>
         </table>
         <br>
+
+        <h2 class="">Vos demandes d'adoption : </h2>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Titre de l'annonce</th>
+                <th scope="col">Chiens concernés</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Expéditeur</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for demande in demandesAdoption %}
+                <tr>
+                    <td>{{ demande.annonce.titre }}</td>
+                    <td>
+                        {% for chien in demande.chiens %}
+                            {{ chien.nom }}
+                        {% endfor %}
+                    </td>
+                    <td>{{ demande.dateCreation|date('d/m/y') }}</td>
+                    <td>{{ demande.adoptant.nom }}</td>
+                    <td>
+                        <a href="#" class="btn btn-outline-primary">Voir la demande</a>
+                        <a href="#" class="btn btn-outline-primary">Voir les messages</a>
+                        <a href="#" class="btn btn-outline-success">Valider</a>
+                        <a href="#" class="btn btn-outline-danger">Suppr</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
 
         <div class="row">
             <div class="col-4">

@@ -6,6 +6,7 @@ use App\Entity\Adoptant;
 use App\Form\AdoptantCompleteFormType;
 use App\Form\AdoptantFormType;
 use App\Repository\AnnonceRepository;
+use App\Repository\DemandeAdoptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,10 +84,12 @@ class AdoptantController extends AbstractController
     /**
      * @Route("/moncompte", name="adoptant_account")
      */
-    public function adoptant_account(): Response
+    public function adoptant_account(DemandeAdoptionRepository $demandeAdoptionRepository): Response
     {
+        $demandesAdoption =  $demandeAdoptionRepository->findBy(['adoptant' => $this->getUser()]);
         return $this->render("adoptant/adoptant_account.html.twig", [
-            'adoptant' =>  $this->getUser()
+            'adoptant' =>  $this->getUser(),
+            'demandesAdoption' => $demandesAdoption
         ]);
     }
 }
