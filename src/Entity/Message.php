@@ -48,7 +48,7 @@ class Message
      * @ORM\ManyToOne(targetEntity=DemandeAdoption::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $demandeAdoption;
+    private ?DemandeAdoption $demandeAdoption;
 
     public function getId(): ?int
     {
