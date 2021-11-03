@@ -12,7 +12,7 @@
                 <h1 class="text-center">Hello {{ annonceur.nom }} !</h1>
             </div>
             <div class="col-4 text-end">
-                <a class=" btn btn-primary">+ Ajouter une nouvelle annonce</a>
+                <a href="{{ path('nouvelle_annonce')}}"class="btn btn-primary">+ Ajouter une nouvelle annonce</a>
             </div>
         </div>
 
@@ -43,7 +43,6 @@
                     <td>{{ annonce.dateMaJ|date('d/m/y') }}</td>
                     <td>
                         <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-outline-success">Voir</a>
-                        <a href="#" class="btn btn-outline-primary">Editer</a>
                         <a href="{{path('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Suppr</a>
                     </td>
                 </tr>
