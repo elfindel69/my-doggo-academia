@@ -7,6 +7,7 @@ use App\Form\AdoptantCompleteFormType;
 use App\Form\AnnonceurCompleteFormType;
 use App\Repository\AnnonceRepository;
 use App\Repository\AnnonceurRepository;
+use App\Repository\DemandeAdoptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +48,7 @@ class AnnonceurController extends AbstractController
     /**
      * @Route("/moncompte-annonceur", name="annonceur_account")
      */
-    public function annonceur_account(AnnonceRepository $annonceRepository): Response
+    public function annonceur_account(AnnonceRepository $annonceRepository, DemandeAdoptionRepository $demandeAdoptionRepository): Response
     {
         $annonceur = $this->getUser();
         $annonces = $annonceRepository->findBy(
@@ -55,9 +56,12 @@ class AnnonceurController extends AbstractController
             ['dateCreation' => 'DESC']
         );
 
+        $demandesAdoption = $demandeAdoptionRepository->findBy(['annonceur' => $annonceur]);
+
         return $this->render("annonceur/annonceur_account.html.twig", [
             'annonceur' => $annonceur,
-            'annonces' => $annonces
+            'annonces' => $annonces,
+            'demandesAdoption' => $demandesAdoption
         ]);
     }
 
