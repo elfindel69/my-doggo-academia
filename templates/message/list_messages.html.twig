@@ -8,6 +8,6 @@
         {% endfor %}
 
     </div>
-    <a class="btn btn-primary">Envoyer un message</a>
+    <a href="{{ path("envoi_message",{id:id}) }}" class="btn btn-primary">Envoyer un message</a>
 {% endblock %}
 
