@@ -6,6 +6,7 @@ use App\Entity\DemandeAdoption;
 use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
+use App\Repository\DemandeAdoptionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DemandeAdoptionController extends AbstractController
 {
     /**
-     * @Route("/demandeAdoption/{id}", name="demande_adoption", requirements={"id"="\d+"})
+     * @Route("/demandeAdoption/{id}/new", name="demande_adoption", requirements={"id"="\d+"})
      */
     public function adoption_request(Request $request, EntityManagerInterface $em, int $id, AnnonceRepository $annonceRepository): Response
     {
@@ -62,4 +63,13 @@ class DemandeAdoptionController extends AbstractController
         ]);
     }
  
+    /**
+     * @Route("/demandeAdoption/{id}", name="single_demande_adoption", requirements={"id"="\d+"})
+     */
+    public function single_adoption(DemandeAdoption $demandeAdoption)
+    {      
+        return $this->render('demande_adoption/single_demande.twig', [
+            'demande' => $demandeAdoption
+        ]);
+    }
 }
