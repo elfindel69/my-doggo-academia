@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\DemandeAdoption;
+use App\Entity\Chien;
 use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
+use App\Repository\ChienRepository;
 use App\Repository\DemandeAdoptionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,27 +95,43 @@ class DemandeAdoptionController extends AbstractController
      * @Route("/validation_demande/{id}", name="validation_demande", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ANNONCEUR")
      */
-    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
+    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption, DemandeAdoptionRepository $demandeAdoptionRepository) : Response {
 
         if ($demandeAdoption->getAnnonceur()->getId() == $this->getUser()->getId()) {
             $demandeAdoption->setAcceptee(true);
-            foreach ($demandeAdoption->getChiens() as $chien) {
+
+            $chiens = $demandeAdoption->getChiens();
+            $idChiens = $chiens->map(function (Chien $chien) {
+                return $chien->getId();
+            });
+            $demandesAvecChiensCourant = $demandeAdoptionRepository->findDemandesAvecChiens($idChiens->toArray());
+
+            foreach ($chiens as $chien) {
                 $chien->setAdopte(true);
+                foreach ($demandesAvecChiensCourant as $demande){
+                    if($demande->getId() != $demandeAdoption->getId()){
+                        $demande->removeChien($chien);
+                        if(count($demande->getChiens()) === 0){
+                            $em->remove($demande);
+                        }
+                    }
+                }
             }
+
             $em->persist($demandeAdoption);
             $pourvue = true;
+
             foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien){
                 if ($chien->getAdopte() == false) {
                     $pourvue = false;
                 }
             }
+
             if($pourvue) {
                 $demandeAdoption->getAnnonce()->setAPourvoir(false);
                 $em->persist($demandeAdoption->getAnnonce());
             }
-            if($demandeAdoption->getChiens()->count() === 0){
-                $em->remove($demandeAdoption);
-            }
+            
             $em->flush();
         }
 

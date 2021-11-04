@@ -19,6 +19,21 @@ class DemandeAdoptionRepository extends ServiceEntityRepository
         parent::__construct($registry, DemandeAdoption::class);
     }
 
+
+    /**
+     * @return DemandeAdoption
+     */
+    public function findDemandesAvecChiens(array $idChiens): array
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.chiens', 'c')
+            ->andWhere('c.id IN (:chiens)')
+            ->setParameter('chiens', $idChiens)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return DemandeAdoption[] Returns an array of DemandeAdoption objects
     //  */
