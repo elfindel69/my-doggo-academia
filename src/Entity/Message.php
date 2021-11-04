@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +26,7 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeInterface $dateEnvoi;
+    private ?DateTimeInterface $dateEnvoi;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -67,12 +68,12 @@ class Message
         return $this;
     }
 
-    public function getDateEnvoi(): ?\DateTimeInterface
+    public function getDateEnvoi(): ?DateTimeInterface
     {
         return $this->dateEnvoi;
     }
 
-    public function setDateEnvoi(\DateTimeInterface $dateEnvoi): self
+    public function setDateEnvoi(DateTimeInterface $dateEnvoi): self
     {
         $this->dateEnvoi = $dateEnvoi;
 

@@ -6,7 +6,6 @@ use App\Entity\Annonce;
 use App\Entity\Annonceur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
@@ -59,7 +58,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->innerJoin("a.annonceur", "an")
             ->andWhere("a.aPourvoir = :aPourvoir")
             ->setParameter('aPourvoir', true)
-            ->orderBy("a.dateCreation","DESC")
+            ->orderBy("a.dateCreation", "DESC")
             ->setMaxResults(6)
             ->getQuery()
             ->getResult();
@@ -67,21 +66,21 @@ class AnnonceRepository extends ServiceEntityRepository
 
     public function findAnnoncesAPourvoir(?Annonceur $annonceur)
     {
-       return $this->createQueryBuilder("a")
+        return $this->createQueryBuilder("a")
             ->distinct()
             ->addSelect([
                 'an',
                 'c',
                 'r',
                 'p'])
-            ->leftJoin("a.annonceur",'an')
+            ->leftJoin("a.annonceur", 'an')
             ->innerJoin("a.chiens", "c")
             ->leftJoin("c.photos", "p")
             ->leftJoin("c.races", "r")
             ->andWhere('a.aPourvoir = :aPourvoir')
-            ->setParameter('aPourvoir',true)
+            ->setParameter('aPourvoir', true)
             ->andWhere('a.annonceur = :annonceur')
-            ->setParameter('annonceur',$annonceur)
+            ->setParameter('annonceur', $annonceur)
             ->getQuery()
             ->getResult();
     }
@@ -96,12 +95,12 @@ class AnnonceRepository extends ServiceEntityRepository
                 'c',
                 'r',
                 'p'])
-            ->leftJoin("a.annonceur",'an')
+            ->leftJoin("a.annonceur", 'an')
             ->innerJoin("a.chiens", "c")
             ->leftJoin("c.photos", "p")
             ->leftJoin("c.races", "r")
             ->andWhere('a.aPourvoir = :aPourvoir')
-            ->setParameter('aPourvoir',true)
+            ->setParameter('aPourvoir', true)
             ->getQuery()
             ->getResult();
     }

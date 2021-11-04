@@ -26,7 +26,7 @@ class UserUpdateSubsrciber implements EventSubscriberInterface
         ];
     }
 
-    public function onBeforeEntityPersistedEvent( $event)
+    public function onBeforeEntityPersistedEvent($event)
     {
         $user = $event->getEntityInstance();
         if (!$user instanceof Admin && !$user instanceof Utilisateur) {

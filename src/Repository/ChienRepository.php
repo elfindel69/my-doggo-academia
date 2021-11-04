@@ -56,7 +56,6 @@ class ChienRepository extends ServiceEntityRepository
             ->andWhere('a.id = :id')
             ->setParameter('id', $annonceId)
             ->andWhere('c.adopte = :false')
-            ->setParameter('false', false)
-        ;
+            ->setParameter('false', false);
     }
 }

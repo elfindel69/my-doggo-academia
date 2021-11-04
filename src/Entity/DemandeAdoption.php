@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DemandeAdoptionRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,7 +56,7 @@ class DemandeAdoption
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeInterface $dateCreation;
+    private ?DateTimeInterface $dateCreation;
 
     public function __construct()
     {
@@ -170,19 +171,20 @@ class DemandeAdoption
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): ?DateTimeInterface
     {
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
 
         return $this;
     }
 
-    public function isThereUnreadMessages(Utilisateur $user): bool {
+    public function isThereUnreadMessages(Utilisateur $user): bool
+    {
         $bool = false;
 
         foreach ($this->messages as $message) {
@@ -194,7 +196,8 @@ class DemandeAdoption
         return $bool;
     }
 
-    public function nbUnreadMessages(Utilisateur $user): int {
+    public function nbUnreadMessages(Utilisateur $user): int
+    {
         $cpt = 0;
         foreach ($this->messages as $message) {
             if (!$message->getEstLu() && $message->getDestinataire() == $user) {

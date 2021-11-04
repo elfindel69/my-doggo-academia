@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="container">
-        {{form_start(form) }}
-            {{ form_row(form.contenu)}}
-            <button type="submit" class="btn btn-primary">Envoyer</button>
+        {{ form_start(form) }}
+        {{ form_row(form.contenu) }}
+        <button type="submit" class="btn btn-primary">Envoyer</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

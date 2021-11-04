@@ -6,10 +6,9 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -40,48 +39,40 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      * @ORM\Column(type="json")
      */
     protected array $roles = [];
-
-    /**
-     * @var string|null
-     * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
-     */
-    private ?string $plainPassword;
-
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
      */
     protected string $password;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      */
     protected ?string $adresse;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      */
     protected ?string $telephone;
-
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="utilisateurs")
      * @ORM\JoinColumn(nullable=true)
      */
     protected ?Ville $ville;
-
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="expediteur")
      */
     protected Collection $messagesEnvoyes;
-
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="destinataire")
      */
     protected Collection $messageRecus;
-
+    /**
+     * @var string|null
+     * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
+     */
+    private ?string $plainPassword;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -117,7 +108,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -125,7 +116,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -178,7 +169,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
         $this->plainPassword = $plainPassword;
     }
 
-    /** 
+    /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -246,7 +237,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     {
         if (!$this->messagesEnvoyes->contains($messagesEnvoye)) {
 
-          $this->messagesEnvoyes[] = $messagesEnvoye;
+            $this->messagesEnvoyes[] = $messagesEnvoye;
             $messagesEnvoye->setExpediteur($this);
         }
 
@@ -306,11 +297,13 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
         return $this;
     }
 
-    public function __toString():string{
+    public function __toString(): string
+    {
         return $this->nom;
     }
 
-    public function isThereUnreadMessages(): bool {
+    public function isThereUnreadMessages(): bool
+    {
         $boolean = false;
         foreach ($this->messageRecus as $message) {
             if (!$message->getEstLu()) {

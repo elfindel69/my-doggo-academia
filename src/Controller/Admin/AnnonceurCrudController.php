@@ -21,6 +21,11 @@ class AnnonceurCrudController extends AbstractCrudController
         $this->adminUrlGenerator = $adminUrlGenerator;
     }
 
+    public static function getEntityFqcn(): string
+    {
+        return Annonceur::class;
+    }
+
     public function createlinks()
     {
         // if your application only contains one Dashboard, it's enough
@@ -38,18 +43,14 @@ class AnnonceurCrudController extends AbstractCrudController
 
         // ...
     }
-    public static function getEntityFqcn(): string
-    {
-        return Annonceur::class;
-    }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('nom'),
             EmailField::new('email'),
-            TextField::new('plainPassword','Mot de passe')->setRequired(true)->onlyWhenCreating(),
-            TextField::new('plainPassword','Mot de passe')->setRequired(false)->onlyWhenUpdating(),
+            TextField::new('plainPassword', 'Mot de passe')->setRequired(true)->onlyWhenCreating(),
+            TextField::new('plainPassword', 'Mot de passe')->setRequired(false)->onlyWhenUpdating(),
             TextField::new('adresse'),
             TelephoneField::new('telephone'),
             AssociationField::new('ville')

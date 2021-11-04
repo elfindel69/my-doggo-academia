@@ -12,8 +12,7 @@ class EnvoiMessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('contenu')
-        ;
+            ->add('contenu');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

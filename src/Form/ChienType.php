@@ -94,9 +94,9 @@ class ChienType extends AbstractType
             ->add('races',
                 EntityType::class,
                 [
-                'class' => Race::class,
-                'choice_label' => 'nom',
-                'multiple' => true,
+                    'class' => Race::class,
+                    'choice_label' => 'nom',
+                    'multiple' => true,
                 ]
             )
             ->add(
@@ -110,8 +110,7 @@ class ChienType extends AbstractType
                     'by_reference' => false,
                     'allow_add' => true,
                 ]
-            )
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\DemandeAdoption;
 use App\Entity\Chien;
+use App\Entity\DemandeAdoption;
 use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
-use App\Repository\ChienRepository;
 use App\Repository\DemandeAdoptionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,41 +35,39 @@ class DemandeAdoptionController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $demandeAdoption
                 ->setAcceptee(false)
                 ->setAdoptant($this->getUser())
                 ->setAnnonce($annonce)
                 ->setAnnonceur($annonce->getAnnonceur())
-                ->setDateCreation(new DateTime())
-            ;
+                ->setDateCreation(new DateTime());
 
 
             $message
                 ->setDateEnvoi(new DateTime())
                 ->setEstLu(false)
                 ->setExpediteur($demandeAdoption->getAdoptant())
-                ->setDestinataire($demandeAdoption->getAnnonceur())
-            ;
+                ->setDestinataire($demandeAdoption->getAnnonceur());
 
             $demandeAdoption->addMessage($message);
 
             $em->persist($demandeAdoption);
             $em->flush();
 
-            return $this->redirectToRoute('single_demande_adoption',['id'=>$demandeAdoption->getId()]);
+            return $this->redirectToRoute('single_demande_adoption', ['id' => $demandeAdoption->getId()]);
         }
 
         return $this->render('demande_adoption/form_demande.twig', [
             'form' => $form->createView()
         ]);
     }
- 
+
     /**
      * @Route("/demandeAdoption/{id}", name="single_demande_adoption", requirements={"id"="\d+"})
      */
     public function single_adoption(DemandeAdoption $demandeAdoption)
-    {      
+    {
         return $this->render('demande_adoption/single_demande.twig', [
             'demande' => $demandeAdoption
         ]);
@@ -80,7 +77,8 @@ class DemandeAdoptionController extends AbstractController
      * @Route("/delete_demande/{id}", name="delete_demande", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ANNONCEUR")
      */
-    public function delete_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
+    public function delete_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption): Response
+    {
         $annonceur = $this->getUser();
 
         if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
@@ -95,7 +93,8 @@ class DemandeAdoptionController extends AbstractController
      * @Route("/validation_demande/{id}", name="validation_demande", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ANNONCEUR")
      */
-    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption, DemandeAdoptionRepository $demandeAdoptionRepository) : Response {
+    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption, DemandeAdoptionRepository $demandeAdoptionRepository): Response
+    {
 
         if ($demandeAdoption->getAnnonceur()->getId() == $this->getUser()->getId()) {
             $demandeAdoption->setAcceptee(true);
@@ -108,10 +107,10 @@ class DemandeAdoptionController extends AbstractController
 
             foreach ($chiens as $chien) {
                 $chien->setAdopte(true);
-                foreach ($demandesAvecChiensCourant as $demande){
-                    if($demande->getId() != $demandeAdoption->getId()){
+                foreach ($demandesAvecChiensCourant as $demande) {
+                    if ($demande->getId() != $demandeAdoption->getId()) {
                         $demande->removeChien($chien);
-                        if(count($demande->getChiens()) === 0){
+                        if (count($demande->getChiens()) === 0) {
                             $em->remove($demande);
                         }
                     }
@@ -121,17 +120,17 @@ class DemandeAdoptionController extends AbstractController
             $em->persist($demandeAdoption);
             $pourvue = true;
 
-            foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien){
+            foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien) {
                 if ($chien->getAdopte() == false) {
                     $pourvue = false;
                 }
             }
 
-            if($pourvue) {
+            if ($pourvue) {
                 $demandeAdoption->getAnnonce()->setAPourvoir(false);
                 $em->persist($demandeAdoption->getAnnonce());
             }
-            
+
             $em->flush();
         }
 

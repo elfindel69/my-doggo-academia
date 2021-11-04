@@ -13,8 +13,7 @@ class PhotoType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('url')
-        ;
+            ->add('url');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

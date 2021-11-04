@@ -20,15 +20,16 @@ class AnnonceService
         $this->em = $em;
     }
 
-    public function checkAnnonceAPourvoir(int $id){
+    public function checkAnnonceAPourvoir(int $id)
+    {
         $annonce = $this->annonceRepository->find($id);
         $nbAdopte = 0;
-        foreach ($annonce->getChiens() as $chien_annonce){
-            if ($chien_annonce->getAdopte()){
+        foreach ($annonce->getChiens() as $chien_annonce) {
+            if ($chien_annonce->getAdopte()) {
                 $nbAdopte++;
             }
         }
-        if ($nbAdopte === $annonce->getChiens()->count()){
+        if ($nbAdopte === $annonce->getChiens()->count()) {
             $annonce->setAPourvoir(false);
             $this->em->persist($annonce);
             $this->em->flush();

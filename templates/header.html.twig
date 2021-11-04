@@ -1,33 +1,35 @@
-
 {% block bodyHeader %}
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{path('default_index')}}">Accueil</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="{{ path('default_index') }}">Accueil</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{path('default_index')}}">Accueil</a>
+                            <a class="nav-link active" aria-current="page"
+                               href="{{ path('default_index') }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('annonces_annonces')}}">Liste des annonces</a>
+                            <a class="nav-link" href="{{ path('annonces_annonces') }}">Liste des annonces</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('annonceurs_liste')}}">Liste des annonceurs</a>
+                            <a class="nav-link" href="{{ path('annonceurs_liste') }}">Liste des annonceurs</a>
                         </li>
-                        {%  if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('admin')}}">Page admin</a>
+                                <a class="nav-link" href="{{ path('admin') }}">Page admin</a>
                             </li>
                         {% endif %}
 
-                        {%  if is_granted('ROLE_ANNONCEUR') %}
+                        {% if is_granted('ROLE_ANNONCEUR') %}
                             {% if app.user.isThereUnreadMessages %}
                                 <li class="nav-item">
-                                    <a class="nav-link position-relative" href="{{path('annonceur_account')}}"><u>Mon compte</u>
+                                    <a class="nav-link position-relative" href="{{ path('annonceur_account') }}"><u>Mon
+                                            compte</u>
                                         <span class="position-absolute top-35 start-90 translate-middle p-1 bg-danger border border-light rounded-circle">
                                             <span class="visually-hidden">New messages</span>
                                         </span>
@@ -35,15 +37,16 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{path('annonceur_account')}}">Mon compte</a>
+                                    <a class="nav-link" href="{{ path('annonceur_account') }}">Mon compte</a>
                                 </li>
                             {% endif %}
                         {% endif %}
 
-                        {%  if is_granted('ROLE_ADOPTANT') %}
+                        {% if is_granted('ROLE_ADOPTANT') %}
                             {% if app.user.isThereUnreadMessages %}
                                 <li class="nav-item">
-                                    <a class="nav-link position-relative" href="{{path('adoptant_account')}}"><u>Mon compte</u>
+                                    <a class="nav-link position-relative" href="{{ path('adoptant_account') }}"><u>Mon
+                                            compte</u>
                                         <span class="position-absolute top-35 start-90 translate-middle p-1 bg-danger border border-light rounded-circle">
                                             <span class="visually-hidden">New messages</span>
                                         </span>
@@ -51,24 +54,24 @@
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{path('adoptant_account')}}">Mon compte</a>
+                                    <a class="nav-link" href="{{ path('adoptant_account') }}">Mon compte</a>
                                 </li>
                             {% endif %}
                         {% endif %}
                         {% if app.user %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+                                <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
 
                 <span class="navbar-text">
-                    {%  if is_granted('ROLE_ANNONCEUR') %}
+                    {% if is_granted('ROLE_ANNONCEUR') %}
                         Connecté en tant que {{ app.user.nom }} (annonceur)
                     {% endif %}
                     {% if is_granted('ROLE_ADOPTANT') %}

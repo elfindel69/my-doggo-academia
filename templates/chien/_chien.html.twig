@@ -1,13 +1,13 @@
 <div class="card col m-2">
     <header>
-        <h2 class="text-center">{{ chien.nom }}</h2>        
+        <h2 class="text-center">{{ chien.nom }}</h2>
     </header>
 
-        <div class="row">
-            {% for photo in chien.photos %}
-                <img class="col-6 my-2" src="{{ photo.url }}" alt="{{ photo.nom }}">
-            {% endfor %}
-        </div>
+    <div class="row">
+        {% for photo in chien.photos %}
+            <img class="col-6 my-2" src="{{ photo.url }}" alt="{{ photo.nom }}">
+        {% endfor %}
+    </div>
 
     <div class="card-body">
         <div class="row">
@@ -31,18 +31,18 @@
         {% endif %}
 
         <p><strong>Races : </strong>
-        <br>
-        {% for race in chien.races %}
-            {{ race.nom }}
-        <br>
+            <br>
+            {% for race in chien.races %}
+                {{ race.nom }}
+                <br>
             {% endfor %}
         </p>
     </div>
     {% if chien.adopte %}
         <p class="text-center">Adopté</p>
     {% else %}
-        {% if app.user == chien.annonce.annonceur and is_granted('ROLE_ANNONCEUR')  %}
-            <a href="{{ path("chien_adopter",{id:chien.id})}}" class="btn btn-primary btn-lg">Marquer comme adopté</a>
+        {% if app.user == chien.annonce.annonceur and is_granted('ROLE_ANNONCEUR') %}
+            <a href="{{ path("chien_adopter",{id:chien.id}) }}" class="btn btn-primary btn-lg">Marquer comme adopté</a>
         {% endif %}
     {% endif %}
 </div>

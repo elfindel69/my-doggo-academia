@@ -25,12 +25,14 @@ class DashboardController extends AbstractDashboardController
     private AnnonceurRepository $annonceurRepository;
 
     public function __construct(AdminRepository $adminRepository, AdoptantRepository $adoptantRepository
-    , AnnonceurRepository                       $annonceurRepository, RaceRepository $raceRepository){
+        , AnnonceurRepository                   $annonceurRepository, RaceRepository $raceRepository)
+    {
         $this->adminRepository = $adminRepository;
         $this->adoptantRepository = $adoptantRepository;
         $this->annonceurRepository = $annonceurRepository;
         $this->raceRepository = $raceRepository;
     }
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -40,11 +42,11 @@ class DashboardController extends AbstractDashboardController
         $nbAdoptants = $this->adoptantRepository->countElements();
         $nbAnnonceurs = $this->annonceurRepository->countElements();
         $nbRaces = $this->raceRepository->countElements();
-        return $this->render('admin/admin-dashboard.html.twig',[
-            'nbAdmins'=>$nbAdmins,
-            'nbAdoptants'=>$nbAdoptants,
-            'nbAnnonceurs'=>$nbAnnonceurs,
-            'nbRaces'=>$nbRaces
+        return $this->render('admin/admin-dashboard.html.twig', [
+            'nbAdmins' => $nbAdmins,
+            'nbAdoptants' => $nbAdoptants,
+            'nbAnnonceurs' => $nbAnnonceurs,
+            'nbRaces' => $nbRaces
         ]);
     }
 

@@ -7,10 +7,10 @@
         </div>
         <br>
         <h2>Toutes les annonces de {{ annonceur.nom }} : </h2>
-        <row class="d-flex ">
+        <div class="d-flex row">
             {% for annonce in annonces %}
                 {% include 'annonce/_annonce.html.twig' with {annonce: annonce } only %}
             {% endfor %}
-        </row>
+        </div>
     </div>
 {% endblock %}

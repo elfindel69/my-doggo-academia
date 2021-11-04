@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
+use App\Repository\AnnonceurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\AnnonceurRepository;
-use phpDocumentor\Reflection\Types\Integer;
 
 /**
- *@ORM\Entity(repositoryClass=AnnonceurRepository::class)
+ * @ORM\Entity(repositoryClass=AnnonceurRepository::class)
  */
 class Annonceur extends Utilisateur
 {
@@ -29,6 +28,7 @@ class Annonceur extends Utilisateur
         $this->demandeAdoptions = new ArrayCollection();
         $this->annonces = new ArrayCollection();
     }
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -37,6 +37,7 @@ class Annonceur extends Utilisateur
         $roles[] = 'ROLE_ANNONCEUR';
         return array_unique($roles);
     }
+
     /**
      * @return Collection|DemandeAdoption[]
      */
@@ -67,14 +68,6 @@ class Annonceur extends Utilisateur
         return $this;
     }
 
-    /**
-     * @return Collection|Annonce[]
-     */
-    public function getAnnonces(): Collection
-    {
-        return $this->annonces;
-    }
-
     public function addAnnonce(Annonce $annonce): self
     {
         if (!$this->annonces->contains($annonce)) {
@@ -97,7 +90,8 @@ class Annonceur extends Utilisateur
         return $this;
     }
 
-    public function getCountAnnoncesAPourvoir(): int {
+    public function getCountAnnoncesAPourvoir(): int
+    {
         $cpt = 0;
 
         foreach ($this->getAnnonces() as $annonce) {
@@ -108,7 +102,16 @@ class Annonceur extends Utilisateur
         return $cpt;
     }
 
-    public function getCountAnnoncesPourvues(): int {
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function getCountAnnoncesPourvues(): int
+    {
         $cpt = 0;
 
         foreach ($this->getAnnonces() as $annonce) {

@@ -3,9 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Region;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class RegionFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture
+class RegionFixtures extends Fixture
 {
 
     /**

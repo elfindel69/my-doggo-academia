@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,12 +40,12 @@ class Annonce
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeInterface $dateCreation;
+    private ?DateTimeInterface $dateCreation;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?\DateTimeInterface $dateMaJ;
+    private ?DateTimeInterface $dateMaJ;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -127,24 +128,24 @@ class Annonce
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): ?DateTimeInterface
     {
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
 
         return $this;
     }
 
-    public function getDateMaJ(): ?\DateTimeInterface
+    public function getDateMaJ(): ?DateTimeInterface
     {
         return $this->dateMaJ;
     }
 
-    public function setDateMaJ(\DateTimeInterface $dateMaJ): self
+    public function setDateMaJ(DateTimeInterface $dateMaJ): self
     {
         $this->dateMaJ = $dateMaJ;
 
@@ -162,7 +163,6 @@ class Annonce
 
         return $this;
     }
-
 
 
     /**
@@ -207,9 +207,10 @@ class Annonce
         return $this;
     }
 
-    public function getNbChiensDispo(): int {
-        $cpt=0;
-        foreach($this->chiens as $chien){
+    public function getNbChiensDispo(): int
+    {
+        $cpt = 0;
+        foreach ($this->chiens as $chien) {
             if ($chien->getAdopte() == false) {
                 $cpt++;
             }

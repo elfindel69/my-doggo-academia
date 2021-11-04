@@ -12,27 +12,27 @@
                     {% set admin_url = ea_url()
                         .setController('App\\Controller\\Admin\\AdminCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ admin_url}}">Page admins</a></li>
+                    <a class="nav-link" href="{{ admin_url }}">Page admins</a></li>
                 <li class="navbar-item">
                     {% set adoptant_url = ea_url()
                         .setController('App\\Controller\\Admin\\AdoptantCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ adoptant_url}}">Page adoptants</a>
+                    <a class="nav-link" href="{{ adoptant_url }}">Page adoptants</a>
                 </li>
                 <li class="navbar-item">
                     {% set adoptant_url = ea_url()
                         .setController('App\\Controller\\Admin\\AnnonceurCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ adoptant_url}}">Page adoptants</a>
+                    <a class="nav-link" href="{{ adoptant_url }}">Page adoptants</a>
                 </li>
                 <li class="navbar-item">
                     {% set race_url = ea_url()
                         .setController('App\\Controller\\Admin\\RaceCrudController')
                         .setAction('index') %}
-                    <a class="nav-link" href="{{ race_url}}">Page races</a>
+                    <a class="nav-link" href="{{ race_url }}">Page races</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" href="{{path("default_index")}}">Retour à l'accueil</a>
+                    <a class="nav-link" href="{{ path("default_index") }}">Retour à l'accueil</a>
                 </li>
             </ul>
         </div>
@@ -40,17 +40,20 @@
     {% set admin_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AdminCrudController')
         .setAction('new') %}
-    <p><strong>{{nbAdmins}}</strong> Admins enregistrés - <a href="{{ admin_url_new }}">Créer un Admin</a></p>
+    <p><strong>{{ nbAdmins }}</strong> Admins enregistrés - <a href="{{ admin_url_new }}">Créer un Admin</a></p>
     {% set adoptant_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AdoptantCrudController')
         .setAction('new') %}
-    <p><strong>{{ nbAdoptants }}</strong> Adoptants enregistrés - <a href="{{ adoptant_url_new }}">Créer un Adoptant</a></p>
+    <p><strong>{{ nbAdoptants }}</strong> Adoptants enregistrés - <a href="{{ adoptant_url_new }}">Créer un Adoptant</a>
+    </p>
     {% set annonceur_url_new = ea_url()
         .setController('App\\Controller\\Admin\\AnnonceurCrudController')
         .setAction('new') %}
-    <p><strong>{{ nbAnnonceurs }}</strong> Annonceurs enregistrés - <a href="{{ annonceur_url_new }}">Créer un Annonceur</a></p>
+    <p><strong>{{ nbAnnonceurs }}</strong> Annonceurs enregistrés - <a href="{{ annonceur_url_new }}">Créer un
+            Annonceur</a></p>
     {% set race_url_new = ea_url()
         .setController('App\\Controller\\Admin\\RaceCrudController')
         .setAction('new') %}
-    <p><strong>{{ nbRaces }}</strong> Races de Chiens enregistrées - <a href="{{ race_url_new }}">Créer une Race de Chien</a></p>
+    <p><strong>{{ nbRaces }}</strong> Races de Chiens enregistrées - <a href="{{ race_url_new }}">Créer une Race de
+            Chien</a></p>
 {% endblock %}

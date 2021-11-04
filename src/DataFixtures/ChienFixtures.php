@@ -28,7 +28,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
         foreach ($races as $race) {
             $chien = new Chien();
             $chien->addRace($race);
-            $chien->setNom("Chien".$cpt);
+            $chien->setNom("Chien" . $cpt);
             $chien->setAdopte(false);
             $chien->setAge($cpt);
             $chien->setAntecedents("All good");
@@ -44,7 +44,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
 
             $chien2 = new Chien();
             $chien2->addRace($race);
-            $chien2->setNom("Chien".$cpt);
+            $chien2->setNom("Chien" . $cpt);
             $chien2->setAdopte(true);
             $chien2->setAge($cpt);
             $chien2->setAntecedents("Had issues");

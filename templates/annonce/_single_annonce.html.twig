@@ -2,23 +2,25 @@
 
 {% block body %}
     <article>
-        
+
         <div class="container">
-        <header class="row my-4">
-            <div class="col-4"></div>
-            <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
-            <div class="col-4 text-end"><a href="{{ path("demandeAdoption",{id:annonce.id}) }}" class="btn btn-success">Adopter un iench</a></div>
-        </header>
-                <div class="text-center">
-                    <p>{{ annonce.description }}</p>
-                </div>
-                <div class="row">
-                {% for chien in annonce.chiens  %}
+            <header class="row my-4">
+                <div class="col-4"></div>
+                <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
+                <div class="col-4 text-end"><a href="{{ path("demandeAdoption",{id:annonce.id}) }}"
+                                               class="btn btn-success">Adopter un iench</a></div>
+            </header>
+            <div class="text-center">
+                <p>{{ annonce.description }}</p>
+            </div>
+            <div class="row">
+                {% for chien in annonce.chiens %}
                     {% include 'chien/_chien.html.twig' with { chien: chien } only %}
                 {% endfor %}
             </div>
         </div>
-        <div class="text-center my-4"><a href="{{ path("demandeAdoption",{id:annonce.id}) }}" class="btn btn-success">Adopter un iench</a></div>
+        <div class="text-center my-4"><a href="{{ path("demandeAdoption",{id:annonce.id}) }}" class="btn btn-success">Adopter
+                un iench</a></div>
     </article>
 {% endblock %}
 
