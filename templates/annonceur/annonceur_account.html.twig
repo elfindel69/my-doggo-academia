@@ -85,7 +85,37 @@
             </tbody>
         </table>
         <br>
+        <h2 class="">Vos demandes d'adoption archivées : </h2>
 
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Titre de l'annonce</th>
+                <th scope="col">Chiens concernés</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Expéditeur</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for demande in demandesAdoptionArchivees %}
+                <tr>
+                    <td>{{ demande.annonce.titre }}</td>
+                    <td>
+                        {% for chien in demande.chiens %}
+                            {{ chien.nom }}
+                        {% endfor %}
+                    </td>
+                    <td>{{ demande.dateCreation|date('d/m/y') }}</td>
+                    <td>{{ demande.adoptant.nom }}</td>
+                    <td>
+                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
+                        <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
         <div class="row">
             <div class="col-4">
