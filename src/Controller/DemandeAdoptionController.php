@@ -103,7 +103,7 @@ class DemandeAdoptionController extends AbstractController
             $em->persist($demandeAdoption);
             $pourvue = true;
             foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien){
-                if ($chien->getAnnonce() == false) {
+                if ($chien->getAdopte() == false) {
                     $pourvue = false;
                 }
             }

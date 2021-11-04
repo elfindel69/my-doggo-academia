@@ -193,4 +193,14 @@ class DemandeAdoption
 
         return $bool;
     }
+
+    public function nbUnreadMessages(): int {
+        $cpt = 0;
+        foreach ($this->messages as $message) {
+            if (!$message->getEstLu()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
 }
