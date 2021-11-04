@@ -181,4 +181,16 @@ class DemandeAdoption
 
         return $this;
     }
+
+    public function isThereUnreadMessages(): bool {
+        $bool = false;
+
+        foreach ($this->messages as $message) {
+            if (!$message->getEstLu()) {
+                $bool = true;
+            }
+        }
+
+        return $bool;
+    }
 }
