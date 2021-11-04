@@ -1,10 +1,17 @@
-<div class="card col-md-5 my-card">
-    <div class="card-body">
-        <ul style="list-style-type: none">
-            <li class="list-group-item">Expediteur : {{ message.expediteur }}</li>
-            <li class="list-group-item">Destinataire : {{ message.destinataire }}</li>
-            <li class="list-group-item">Date d'envoi : {{ message.dateEnvoi|format_datetime(locale='fr') }}</li>
-            <li class="list-group-item">{{ message.contenu }}</li>
-        </ul>
+{% if message.expediteur == app.user %}
+<div class="card col-md-6 my-card">
+    <div class="card-body" style="background-color: royalblue">
+        {% endif %}
+        {% if message.destinataire == app.user %}
+        <div class="card col-md-6 my-card" style="margin-left:auto"
+        ">
+        <div class="card-body" style="background-color: seagreen">
+            {% endif %}
+            <ul style="list-style-type: none">
+                <li class="list-group-item">Expediteur : {{ message.expediteur }}</li>
+                <li class="list-group-item">Destinataire : {{ message.destinataire }}</li>
+                <li class="list-group-item">Date d'envoi : {{ message.dateEnvoi|format_datetime(locale='fr') }}</li>
+                <li class="list-group-item">{{ message.contenu }}</li>
+            </ul>
+        </div>
     </div>
-</div>

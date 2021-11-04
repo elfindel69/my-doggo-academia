@@ -3,11 +3,17 @@
 {% block body %}
     <h2>Mes messages</h2>
     <div class="container d-flex flex">
-        {% for message in messages %}
-            {% include 'message/single_message.html.twig' with {message: message } only %}
-        {% endfor %}
+        <div class="row d-flex flex">
+            {% for message in messages %}
+                {% include 'message/single_message.html.twig' with {message: message } only %}
+            {% endfor %}
+
+        </div>
 
     </div>
-    <a href="{{ path("envoi_message",{id:id}) }}" class="btn btn-primary">Envoyer un message</a>
+    <div class="text-center">
+        <a href="{{ path("envoi_message",{id:id}) }}" class="btn btn-primary">Envoyer un message</a>
+    </div>
+
 {% endblock %}
 
