@@ -65,3 +65,4 @@ security:
         - { path: ^/edit-account-annonceur$, roles: ROLE_ANNONCEUR }
         - { path: ^/messages/\d+$, roles: [ROLE_ANNONCEUR,ROLE_ADOPTANT] }
         - { path: ^/envoiMessage/\d+$, roles: [ROLE_ANNONCEUR,ROLE_ADOPTANT] }
+        - { path: ^/demandeAdoption/\d+/new$, roles: ROLE_ADOPTANT }
