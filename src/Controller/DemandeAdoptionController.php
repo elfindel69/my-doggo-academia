@@ -6,7 +6,7 @@ use App\Entity\DemandeAdoption;
 use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
-use App\Repository\DemandeAdoptionRepository;
+use App\Repository\ChienRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -95,25 +95,33 @@ class DemandeAdoptionController extends AbstractController
      */
     public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
 
-        if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
+        if ($demandeAdoption->getAnnonceur()->getId() == $this->getUser()->getId()) {
             $demandeAdoption->setAcceptee(true);
-            foreach ($demandeAdoption->getChiens() as $chien) {
+
+            $chiens = $demandeAdoption->getChiens();
+            foreach ($chiens as $chien) {
                 $chien->setAdopte(true);
+                foreach ($chien->getDemandeAdoption() as $demande){
+                    if($demande != $demandeAdoption){
+                        $demande->removeChien($chien);
+                    }
+                }
             }
+            
             $em->persist($demandeAdoption);
             $pourvue = true;
+
             foreach ($demandeAdoption->getAnnonce()->getChiens() as $chien){
-                if ($chien->getAnnonce() == false) {
+                if ($chien->getAdopte() == false) {
                     $pourvue = false;
                 }
             }
+
             if($pourvue) {
                 $demandeAdoption->getAnnonce()->setAPourvoir(false);
                 $em->persist($demandeAdoption->getAnnonce());
             }
-            if($demandeAdoption->getChiens()->count() === 0){
-                $em->remove($demandeAdoption);
-            }
+
             $em->flush();
         }
 
