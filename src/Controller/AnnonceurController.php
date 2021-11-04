@@ -25,11 +25,6 @@ class AnnonceurController extends AbstractController
         $annonceur = $annonceurRepository->find($id);
         $annonces = $annonceRepository->findAnnoncesAPourvoir($annonceur);
 
-//        $annonces2 = $annonceRepository->findBy(
-//            ['annonceur' => $annonceur,
-//                'aPourvoir' => true]
-//        );
-
         return $this->render('annonceur/_single_annonceur.html.twig', [
             'annonceur' => $annonceur,
             'annonces' => $annonces,
@@ -60,10 +55,15 @@ class AnnonceurController extends AbstractController
             'annonceur' => $annonceur,
             'acceptee' => false]);
 
+        $demandesAdoptionArchivees = $demandeAdoptionRepository->findBy([
+            'annonceur' => $annonceur,
+            'acceptee' => true]);
+
         return $this->render("annonceur/annonceur_account.html.twig", [
             'annonceur' => $annonceur,
             'annonces' => $annonces,
-            'demandesAdoption' => $demandesAdoption
+            'demandesAdoption' => $demandesAdoption,
+            'demandesAdoptionArchivees' => $demandesAdoptionArchivees
         ]);
     }
 

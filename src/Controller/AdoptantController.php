@@ -86,10 +86,18 @@ class AdoptantController extends AbstractController
      */
     public function adoptant_account(DemandeAdoptionRepository $demandeAdoptionRepository): Response
     {
-        $demandesAdoption =  $demandeAdoptionRepository->findBy(['adoptant' => $this->getUser()]);
+
+        $demandesAdoption = $demandeAdoptionRepository->findBy([
+            'adoptant' => $this->getUser(),
+            'acceptee' => false]);
+
+        $demandesAdoptionArchivees = $demandeAdoptionRepository->findBy([
+            'adoptant' => $this->getUser(),
+            'acceptee' => true]);
         return $this->render("adoptant/adoptant_account.html.twig", [
             'adoptant' =>  $this->getUser(),
-            'demandesAdoption' => $demandesAdoption
+            'demandesAdoption' => $demandesAdoption,
+            'demandesAdoptionArchivees' => $demandesAdoptionArchivees,
         ]);
     }
 }
