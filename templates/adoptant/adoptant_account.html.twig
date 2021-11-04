@@ -1,4 +1,4 @@
-{%  extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <br>
@@ -9,9 +9,9 @@
             </div>
             <div class="col-4 d-flex align-items-center">
                 {% if adoptant.nom %}
-                <h1 class="text-center">Hello {{ adoptant.nom}} !</h1>
+                    <h1 class="text-center">Hello {{ adoptant.nom }} !</h1>
                 {% else %}
-                <h1 class="text-center">Hello !</h1>
+                    <h1 class="text-center">Hello !</h1>
                 {% endif %}
             </div>
         </div>
@@ -40,11 +40,14 @@
                     <td>{{ demande.dateCreation|date('d/m/y') }}</td>
                     <td>{{ demande.annonceur.nom }}</td>
                     <td>
-                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
+                        <a href="{{ path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                            la demande</a>
                         {% if demande.isThereUnreadMessages(app.user) == false %}
-                            <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
+                            <a href="{{ path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                                les messages</a>
                         {% else %}
-                            <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-primary position-relative">
+                            <a href="{{ path('messages_list',{id:demande.id}) }}"
+                               class="btn btn-primary position-relative">
                                 Voir les messages
                                 <span class="badge bg-secondary">{{ demande.nbUnreadMessages(app.user) }}</span>
                             </a>
@@ -79,8 +82,10 @@
                     <td>{{ demande.dateCreation|date('d/m/y') }}</td>
                     <td>{{ demande.annonceur.nom }}</td>
                     <td>
-                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
-                        <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
+                        <a href="{{ path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                            la demande</a>
+                        <a href="{{ path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les
+                            messages</a>
 
                     </td>
                 </tr>
@@ -99,7 +104,7 @@
         </div>
         <br>
         {% if adoptant.nom %}
-        <h5>{{ adoptant.nom }}</h5>
+            <h5>{{ adoptant.nom }}</h5>
         {% endif %}
 
         <br>

@@ -7,7 +7,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -21,6 +20,12 @@ class AdoptantCrudController extends AbstractCrudController
     {
         $this->adminUrlGenerator = $adminUrlGenerator;
     }
+
+    public static function getEntityFqcn(): string
+    {
+        return Adoptant::class;
+    }
+
     public function createlinks()
     {
         // if your application only contains one Dashboard, it's enough
@@ -37,19 +42,14 @@ class AdoptantCrudController extends AbstractCrudController
             ->generateUrl();
         // ...
     }
-    public static function getEntityFqcn(): string
-    {
-        return Adoptant::class;
-    }
-
 
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('nom'),
             EmailField::new('email'),
-            TextField::new('plainPassword','Mot de passe')->setRequired(true)->onlyWhenCreating(),
-            TextField::new('plainPassword','Mot de passe')->setRequired(false)->onlyWhenUpdating(),
+            TextField::new('plainPassword', 'Mot de passe')->setRequired(true)->onlyWhenCreating(),
+            TextField::new('plainPassword', 'Mot de passe')->setRequired(false)->onlyWhenUpdating(),
             TextField::new('adresse'),
             TelephoneField::new('telephone'),
             AssociationField::new('ville')

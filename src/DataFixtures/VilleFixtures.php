@@ -27,9 +27,9 @@ class VilleFixtures extends Fixture implements DependentFixtureInterface
         $departements = $this->departementRepository->findAll();
 
         foreach ($departements as $departement) {
-            for($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 $ville = new Ville();
-                $ville->setNom("Ville".$i);
+                $ville->setNom("Ville" . $i);
                 $ville->setCodePostal($i + 1000);
                 $ville->setDepartement($departement);
                 $manager->persist($ville);

@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\Annonceur;
 use App\Entity\Chien;
-use App\Entity\Photo;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use DateTime;
@@ -31,12 +30,14 @@ class AnnonceController extends AbstractController
             'annonces' => $annonces
         ]);
     }
+
     /**
      * Ici, on peut s'assurer que le paramètre page est un entier (l'expression régulière \d+ fait cette vérification)
      *
      * @Route("/annonce/{id}", name="annonces_single_annonce", requirements={"id"="\d+"})
      */
-    public function details(AnnonceRepository $annonceRepository,int $id): Response{
+    public function details(AnnonceRepository $annonceRepository, int $id): Response
+    {
         $annonce = $annonceRepository->find($id);
         return $this->render('annonce/_single_annonce.html.twig', [
             'annonce' => $annonce
@@ -47,10 +48,11 @@ class AnnonceController extends AbstractController
      * @Route("/delete/{id}", name="delete_annonce", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ANNONCEUR")
      */
-    public function delete(EntityManagerInterface $em, Annonce $annonce): Response{
+    public function delete(EntityManagerInterface $em, Annonce $annonce): Response
+    {
         $annonceur = $this->getUser();
 
-        if($annonce->getAnnonceur()->getId() == $annonceur->getId()) {
+        if ($annonce->getAnnonceur()->getId() == $annonceur->getId()) {
             $em->remove($annonce);
             $em->flush();
         }
@@ -63,8 +65,9 @@ class AnnonceController extends AbstractController
      * @IsGranted("ROLE_ANNONCEUR")
      */
     public function update(EntityManagerInterface $em,
-                           Request $request,
-                           AnnonceRepository $annonceRepository, int $id): Response {
+                           Request                $request,
+                           AnnonceRepository      $annonceRepository, int $id): Response
+    {
         $annonce = $annonceRepository->find($id);
 
         $form = $this->createForm(AnnonceType::class, $annonce, [
@@ -88,7 +91,6 @@ class AnnonceController extends AbstractController
     }
 
     /**
-
      * @Route ("/nouvelleAnnonce", name="nouvelle_annonce")
      */
     public function form(Request $request, EntityManagerInterface $em): Response
@@ -115,9 +117,9 @@ class AnnonceController extends AbstractController
             $em->persist($annonce);
             $em->flush();
             $this->addFlash('success', 'Annonce ajoutée avec succès');
-            return $this->redirectToRoute('annonces_single_annonce' ,
+            return $this->redirectToRoute('annonces_single_annonce',
                 [
-                   "id" => $annonce->getId()
+                    "id" => $annonce->getId()
                 ]);
         }
 
@@ -125,16 +127,17 @@ class AnnonceController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
     /**
      * @Route ("/checkDemandeAdoption/{id}", name="demandeAdoption", requirements={"id"="\d+"})
      */
-    public function demandeAdoption(int $id):Response{
+    public function demandeAdoption(int $id): Response
+    {
         $user = $this->getUser();
 
-        if($user){
-            return $this->redirectToRoute('demande_adoption',array("id"=>$id));
-        }
-        else{
+        if ($user) {
+            return $this->redirectToRoute('demande_adoption', array("id" => $id));
+        } else {
             return $this->redirectToRoute('adoptant_login');
         }
     }

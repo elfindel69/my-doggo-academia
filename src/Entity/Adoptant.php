@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
+use App\Repository\AdoptantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\AdoptantRepository;
 
 /**
- *@ORM\Entity(repositoryClass=AdoptantRepository::class)
+ * @ORM\Entity(repositoryClass=AdoptantRepository::class)
  */
-
 class Adoptant extends Utilisateur
 {
     /**
@@ -32,6 +31,7 @@ class Adoptant extends Utilisateur
         $roles[] = 'ROLE_ADOPTANT';
         return array_unique($roles);
     }
+
     /**
      * @return Collection|DemandeAdoption[]
      */

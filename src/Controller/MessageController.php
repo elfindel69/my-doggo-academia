@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\DemandeAdoption;
 use App\Entity\Message;
-use App\Form\DemandeAdoptionType;
 use App\Form\EnvoiMessageType;
-use App\Repository\AnnonceRepository;
 use App\Repository\UtilisateurRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +19,11 @@ class MessageController extends AbstractController
     /**
      * @Route("/messages/{id}", name="messages_list")
      */
-    public function listMessagesAction(DemandeAdoption $demandeAdoption,EntityManagerInterface $em): Response
+    public function listMessagesAction(DemandeAdoption $demandeAdoption, EntityManagerInterface $em): Response
     {
         $messages = $demandeAdoption->getMessages();
-        foreach ($messages as $message){
-            if (!$message->getEstLu() && $message->getDestinataire()->getId() === $this->getuser()->getId()){
+        foreach ($messages as $message) {
+            if (!$message->getEstLu() && $message->getDestinataire()->getId() === $this->getuser()->getId()) {
                 $message->setEstLu(true);
                 $em->persist($message);
                 $em->flush();
@@ -32,17 +31,17 @@ class MessageController extends AbstractController
         }
 
 
-        return $this->render('message/list_messages.html.twig',[
+        return $this->render('message/list_messages.html.twig', [
             "messages" => $messages,
-            "id"=>$demandeAdoption->getId()
+            "id" => $demandeAdoption->getId()
         ]);
     }
 
     /**
      * @Route("/envoiMessage/{id}", name="envoi_message", requirements={"id"="\d+"})
      */
-    public function envoiMessageAction(Request $request, EntityManagerInterface $em,DemandeAdoption $demandeAdoption,
-    UtilisateurRepository $utilisateurRepository): Response
+    public function envoiMessageAction(Request               $request, EntityManagerInterface $em, DemandeAdoption $demandeAdoption,
+                                       UtilisateurRepository $utilisateurRepository): Response
     {
         $message = new Message();
         $form = $this->createForm(EnvoiMessageType::class, $message, [
@@ -51,26 +50,25 @@ class MessageController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $expediteur = $utilisateurRepository->find($this->getUser()->getId());
             $destinataire = null;
-            if($this->isGranted("ROLE_ANNONCEUR")){
+            if ($this->isGranted("ROLE_ANNONCEUR")) {
                 $destinataire = $demandeAdoption->getAdoptant();
             }
-            if($this->isGranted("ROLE_ADOPTANT")){
+            if ($this->isGranted("ROLE_ADOPTANT")) {
                 $destinataire = $demandeAdoption->getAnnonceur();
             }
             $message
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur( $expediteur)
+                ->setDateEnvoi(new DateTime())
+                ->setExpediteur($expediteur)
                 ->setDemandeAdoption($demandeAdoption)
                 ->setDestinataire($destinataire)
-                ->setEstLu(false)
-            ;
+                ->setEstLu(false);
             $em->persist($message);
             $em->flush();
 
-            return $this->redirectToRoute('messages_list',['id'=>$demandeAdoption->getId()]);
+            return $this->redirectToRoute('messages_list', ['id' => $demandeAdoption->getId()]);
         }
 
         return $this->render('message/form_message.twig', [

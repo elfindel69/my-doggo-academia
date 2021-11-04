@@ -3,12 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Utilisateur;
-use App\Entity\Annonceur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use function get_class;
 
 /**
  * @method Utilisateur|null find($id, $lockMode = null, $lockVersion = null)
@@ -29,7 +29,7 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof Utilisateur) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
         $user->setPassword($newHashedPassword);

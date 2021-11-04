@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Adoptant;
 use App\Form\AdoptantCompleteFormType;
 use App\Form\AdoptantFormType;
-use App\Repository\AnnonceRepository;
 use App\Repository\DemandeAdoptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,7 +56,7 @@ class AdoptantController extends AbstractController
     /**
      * @Route("/edit-account", name="adoptant_update")
      */
-    public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response 
+    public function completeFormAdoptant(Request $request, EntityManagerInterface $em): Response
     {
         $adoptant = $this->getUser();
 
@@ -95,7 +94,7 @@ class AdoptantController extends AbstractController
             'adoptant' => $this->getUser(),
             'acceptee' => true]);
         return $this->render("adoptant/adoptant_account.html.twig", [
-            'adoptant' =>  $this->getUser(),
+            'adoptant' => $this->getUser(),
             'demandesAdoption' => $demandesAdoption,
             'demandesAdoptionArchivees' => $demandesAdoptionArchivees,
         ]);

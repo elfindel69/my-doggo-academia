@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container">
-    <div class="text-center mt-4">
-        <h4>Selectionnez le.s chien.s que vous souhaitez adopter</h4>
+    <div class="container">
+        <div class="text-center mt-4">
+            <h4>Selectionnez le.s chien.s que vous souhaitez adopter</h4>
+        </div>
+        {{ form_start(form) }}
+
+        <div style="height: 50vh;">
+            {{ form_widget(form.chiens) }}
+        </div>
+
+        <div>
+            {{ form_row(form.messages) }}
+        </div>
+
+        <div class="text-center my-2">
+            <button class="btn btn-success">Valider</button>
+        </div>
+
+        {{ form_end(form) }}
+
     </div>
-    {{ form_start(form) }}
-
-    <div style="height: 50vh;">
-        {{ form_widget(form.chiens) }}
-    </div>
-
-    <div >
-        {{ form_row(form.messages) }}
-    </div>
-
-    <div class="text-center my-2">
-        <button class="btn btn-success">Valider</button>
-    </div>
-
-    {{ form_end(form) }}
-
-</div>
 
 {% endblock %}

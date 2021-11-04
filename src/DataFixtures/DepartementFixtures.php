@@ -26,10 +26,10 @@ class DepartementFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($regions as $region) {
 
-            for($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 10; $i++) {
 
                 $departement = new Departement();
-                $departement->setNom('Departement '.$i);
+                $departement->setNom('Departement ' . $i);
                 $departement->setRegion($region);
 
                 $manager->persist($departement);

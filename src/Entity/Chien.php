@@ -41,7 +41,6 @@ class Chien
     private ?float $poids;
 
 
-
     /**
      * @ORM\Column(type="text", nullable=true)
      */

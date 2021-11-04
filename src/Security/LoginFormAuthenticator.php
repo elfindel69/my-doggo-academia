@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,7 +53,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
 
         return new RedirectResponse($this->urlGenerator->generate('default_index'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        throw new Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

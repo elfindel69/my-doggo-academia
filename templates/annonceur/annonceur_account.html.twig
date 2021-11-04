@@ -1,4 +1,4 @@
-{%  extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <br>
@@ -11,7 +11,7 @@
                 <h1 class="text-center">Hello {{ annonceur.nom }} !</h1>
             </div>
             <div class="col-4 text-end">
-                <a href="{{ path('nouvelle_annonce')}}"class="btn btn-primary">+ Ajouter une nouvelle annonce</a>
+                <a href="{{ path('nouvelle_annonce') }}" class="btn btn-primary">+ Ajouter une nouvelle annonce</a>
             </div>
         </div>
 
@@ -21,13 +21,13 @@
 
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th scope="col">Titre de l'annonce</th>
-                    <th scope="col">Chiens disponibles</th>
-                    <th scope="col">Date de création</th>
-                    <th scope="col">Date de modification</th>
-                    <th scope="col">Actions</th>
-                </tr>
+            <tr>
+                <th scope="col">Titre de l'annonce</th>
+                <th scope="col">Chiens disponibles</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Date de modification</th>
+                <th scope="col">Actions</th>
+            </tr>
             </thead>
             <tbody>
             {% for annonce in annonces %}
@@ -41,9 +41,10 @@
                     <td>{{ annonce.dateCreation|date('d/m/y') }}</td>
                     <td>{{ annonce.dateMaJ|date('d/m/y') }}</td>
                     <td>
-                        <a href="{{path('annonces_single_annonce',{id:annonce.id})}}" class="btn btn-outline-success">Voir</a>
-                        <a href="{{path('update_annonce',{id:annonce.id})}}" class="btn btn-outline-primary">Editer</a>
-                        <a href="{{path('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Suppr</a>
+                        <a href="{{ path('annonces_single_annonce',{id:annonce.id}) }}" class="btn btn-outline-success">Voir</a>
+                        <a href="{{ path('update_annonce',{id:annonce.id}) }}"
+                           class="btn btn-outline-primary">Editer</a>
+                        <a href="{{ path('delete_annonce',{id:annonce.id}) }}" class="btn btn-outline-danger">Suppr</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -76,20 +77,24 @@
                     <td>{{ demande.dateCreation|date('d/m/y') }}</td>
                     <td>{{ demande.adoptant.nom }}</td>
                     <td>
-                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
+                        <a href="{{ path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                            la demande</a>
 
                         {% if demande.isThereUnreadMessages(app.user) == false %}
-                            <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
+                            <a href="{{ path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                                les messages</a>
                         {% else %}
-                            <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-primary position-relative">
+                            <a href="{{ path('messages_list',{id:demande.id}) }}"
+                               class="btn btn-primary position-relative">
                                 Voir les messages
                                 <span class="badge bg-secondary">{{ demande.nbUnreadMessages(app.user) }}</span>
                             </a>
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{path('validation_demande',{id:demande.id})}}" class="btn btn-outline-success">Valider</a>
-                        <a href="{{path('delete_demande',{id:demande.id})}}" class="btn btn-outline-danger">Supprimer</a>
+                        <a href="{{ path('validation_demande',{id:demande.id}) }}" class="btn btn-outline-success">Valider</a>
+                        <a href="{{ path('delete_demande',{id:demande.id}) }}"
+                           class="btn btn-outline-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -120,8 +125,10 @@
                     <td>{{ demande.dateCreation|date('d/m/y') }}</td>
                     <td>{{ demande.adoptant.nom }}</td>
                     <td>
-                        <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
-                        <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
+                        <a href="{{ path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir
+                            la demande</a>
+                        <a href="{{ path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les
+                            messages</a>
                     </td>
                 </tr>
             {% endfor %}

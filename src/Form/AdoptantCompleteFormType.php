@@ -26,8 +26,7 @@ class AdoptantCompleteFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
-            ->add('telephone', TextType::class, ['required' => true])
-        ;
+            ->add('telephone', TextType::class, ['required' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

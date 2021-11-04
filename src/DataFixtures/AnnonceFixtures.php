@@ -5,17 +5,18 @@ namespace App\DataFixtures;
 use App\Entity\Annonce;
 use App\Repository\AnnonceurRepository;
 use App\Repository\ChienRepository;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Validator\Constraints\Date;
 
 class AnnonceFixtures extends Fixture implements DependentFixtureInterface
 {
     private ChienRepository $chienRepository;
     private AnnonceurRepository $annonceurRepository;
 
-    public function __construct(ChienRepository $chienRepository, AnnonceurRepository $annonceurRepository) {
+    public function __construct(ChienRepository $chienRepository, AnnonceurRepository $annonceurRepository)
+    {
         $this->chienRepository = $chienRepository;
         $this->annonceurRepository = $annonceurRepository;
     }
@@ -29,7 +30,7 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
         $annonceurs = $this->annonceurRepository->findAll();
         $chiens = $this->chienRepository->findAll();
         $cpt = 0;
-        $cpt2= 19;
+        $cpt2 = 19;
 
         foreach ($annonceurs as $annonceur) {
             for ($i = 0; $i < 2; $i++) {
@@ -43,8 +44,8 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
                 $annonce->addChien($chien2);
                 $annonce->setTitre('Titre de l\'annonce');
                 $annonce->setAPourvoir(true);
-                $annonce->setDateCreation(new \DateTime());
-                $annonce->setDateMaJ(new \DateTime());
+                $annonce->setDateCreation(new DateTime());
+                $annonce->setDateMaJ(new DateTime());
                 $cpt2--;
                 $manager->persist($annonce);
             }

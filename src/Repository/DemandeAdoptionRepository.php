@@ -30,8 +30,7 @@ class DemandeAdoptionRepository extends ServiceEntityRepository
             ->andWhere('c.id IN (:chiens)')
             ->setParameter('chiens', $idChiens)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     // /**

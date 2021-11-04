@@ -4,17 +4,19 @@ namespace App\DataFixtures;
 
 use App\Entity\Annonceur;
 use App\Repository\VilleRepository;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implements DependentFixtureInterface
+class AnnonceurFixtures extends Fixture implements DependentFixtureInterface
 {
 
     private UserPasswordHasherInterface $hasher;
     private VilleRepository $villeRepository;
 
-    public function __construct(VilleRepository $villeRepository, UserPasswordHasherInterface $hasher) {
+    public function __construct(VilleRepository $villeRepository, UserPasswordHasherInterface $hasher)
+    {
         $this->villeRepository = $villeRepository;
         $this->hasher = $hasher;
     }
@@ -28,18 +30,18 @@ class AnnonceurFixtures extends \Doctrine\Bundle\FixturesBundle\Fixture implemen
         for ($i = 0; $i < 12; $i++) {
 
             $villes = $this->villeRepository->findAll();
-            $rand = rand(0, count($villes)-1);
+            $rand = rand(0, count($villes) - 1);
 
             $annonceur = new Annonceur();
-            $annonceur ->setNom("Annonceur".$i);
-            $pwd = $this->hasher->hashPassword($annonceur, "pass".$i);
+            $annonceur->setNom("Annonceur" . $i);
+            $pwd = $this->hasher->hashPassword($annonceur, "pass" . $i);
             $annonceur->setPassword($pwd);
-            $annonceur->setEmail("annonceur".$i."@mail.fr");
-            $annonceur->setAdresse("Adresse".$i);
+            $annonceur->setEmail("annonceur" . $i . "@mail.fr");
+            $annonceur->setAdresse("Adresse" . $i);
 
             $annonceur->setVille($villes[$rand]);
 
-            $annonceur->setTelephone("000000000".$i);
+            $annonceur->setTelephone("000000000" . $i);
             $roles = [];
             $roles[] = 'ROLE_USER';
             $roles[] = 'ROLE_ANNONCEUR';

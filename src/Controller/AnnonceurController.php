@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Annonceur;
-use App\Form\AdoptantCompleteFormType;
 use App\Form\AnnonceurCompleteFormType;
 use App\Repository\AnnonceRepository;
 use App\Repository\AnnonceurRepository;
@@ -19,8 +17,8 @@ class AnnonceurController extends AbstractController
     /**
      * @Route("/annonceur/{id}", name="annonceur_single", requirements={"id"="\d+"})
      */
-    public function annonceur_single(AnnonceurRepository $annonceurRepository,AnnonceRepository $annonceRepository,
-                                     int $id ): Response
+    public function annonceur_single(AnnonceurRepository $annonceurRepository, AnnonceRepository $annonceRepository,
+                                     int                 $id): Response
     {
         $annonceur = $annonceurRepository->find($id);
         $annonces = $annonceRepository->findAnnoncesAPourvoir($annonceur);
@@ -30,16 +28,19 @@ class AnnonceurController extends AbstractController
             'annonces' => $annonces,
         ]);
     }
+
     /**
      * @Route("/annonceurs", name="annonceurs_liste")
      */
-    public function annonceurs(AnnonceurRepository $annonceurRepository):Response{
+    public function annonceurs(AnnonceurRepository $annonceurRepository): Response
+    {
         $annonceurs = $annonceurRepository->findAll();
         return $this->render('annonceur/_liste_annonceurs.html.twig', [
             'annonceurs' => $annonceurs
 
         ]);
     }
+
     /**
      * @Route("/moncompte-annonceur", name="annonceur_account")
      */
