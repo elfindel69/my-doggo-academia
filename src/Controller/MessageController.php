@@ -24,7 +24,7 @@ class MessageController extends AbstractController
     {
         $messages = $demandeAdoption->getMessages();
         foreach ($messages as $message){
-            if (!$message->getEstLu()){
+            if (!$message->getEstLu() && $message->getDestinataire()->getId() === $this->getuser()->getId()){
                 $message->setEstLu(true);
                 $em->persist($message);
                 $em->flush();
@@ -65,6 +65,7 @@ class MessageController extends AbstractController
                 ->setExpediteur( $expediteur)
                 ->setDemandeAdoption($demandeAdoption)
                 ->setDestinataire($destinataire)
+                ->setEstLu(false)
             ;
             $em->persist($message);
             $em->flush();
