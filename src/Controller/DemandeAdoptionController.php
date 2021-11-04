@@ -111,6 +111,9 @@ class DemandeAdoptionController extends AbstractController
                 $demandeAdoption->getAnnonce()->setAPourvoir(false);
                 $em->persist($demandeAdoption->getAnnonce());
             }
+            if($demandeAdoption->getChiens()->count() === 0){
+                $em->remove($demandeAdoption);
+            }
             $em->flush();
         }
 
