@@ -111,6 +111,10 @@ class DemandeAdoptionController extends AbstractController
                 foreach ($demandesAvecChiensCourant as $demande){
                     if($demande->getId() != $demandeAdoption->getId()){
                         $demande->removeChien($chien);
+                        
+                        if($demande->getChiens()->count() === 0){
+                            $em->remove($demandeAdoption);
+                        }
                     }
                 }
             }
@@ -128,7 +132,7 @@ class DemandeAdoptionController extends AbstractController
                 $demandeAdoption->getAnnonce()->setAPourvoir(false);
                 $em->persist($demandeAdoption->getAnnonce());
             }
-
+            
             $em->flush();
         }
 
