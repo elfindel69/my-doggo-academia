@@ -41,12 +41,12 @@
                     <td>{{ demande.annonceur.nom }}</td>
                     <td>
                         <a href="{{path('single_demande_adoption',{id:demande.id}) }}" class="btn btn-outline-primary">Voir la demande</a>
-                        {% if demande.isThereUnreadMessages == false %}
+                        {% if demande.isThereUnreadMessages(app.user) == false %}
                             <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-outline-primary">Voir les messages</a>
                         {% else %}
                             <a href="{{path('messages_list',{id:demande.id}) }}" class="btn btn-primary position-relative">
                                 Voir les messages
-                                <span class="badge bg-secondary">{{ demande.nbUnreadMessages }}</span>
+                                <span class="badge bg-secondary">{{ demande.nbUnreadMessages(app.user) }}</span>
                             </a>
                         {% endif %}
                     </td>

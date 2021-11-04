@@ -182,11 +182,11 @@ class DemandeAdoption
         return $this;
     }
 
-    public function isThereUnreadMessages(): bool {
+    public function isThereUnreadMessages(Utilisateur $user): bool {
         $bool = false;
 
         foreach ($this->messages as $message) {
-            if (!$message->getEstLu()) {
+            if (!$message->getEstLu() && $message->getDestinataire() == $user) {
                 $bool = true;
             }
         }
@@ -194,10 +194,10 @@ class DemandeAdoption
         return $bool;
     }
 
-    public function nbUnreadMessages(): int {
+    public function nbUnreadMessages(Utilisateur $user): int {
         $cpt = 0;
         foreach ($this->messages as $message) {
-            if (!$message->getEstLu()) {
+            if (!$message->getEstLu() && $message->getDestinataire() == $user) {
                 $cpt++;
             }
         }

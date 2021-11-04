@@ -309,4 +309,15 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
     public function __toString():string{
         return $this->nom;
     }
+
+    public function isThereUnreadMessages(): bool {
+        $boolean = false;
+        foreach ($this->messageRecus as $message) {
+            if (!$message->getEstLu()) {
+                $boolean = true;
+            }
+        }
+        return $boolean;
+    }
+
 }
