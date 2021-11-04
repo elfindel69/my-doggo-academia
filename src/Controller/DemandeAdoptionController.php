@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\DemandeAdoption;
+use App\Entity\Chien;
 use App\Entity\Message;
 use App\Form\DemandeAdoptionType;
 use App\Repository\AnnonceRepository;
 use App\Repository\ChienRepository;
+use App\Repository\DemandeAdoptionRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -93,21 +95,26 @@ class DemandeAdoptionController extends AbstractController
      * @Route("/validation_demande/{id}", name="validation_demande", requirements={"id"="\d+"})
      * @IsGranted("ROLE_ANNONCEUR")
      */
-    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
+    public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption, DemandeAdoptionRepository $demandeAdoptionRepository) : Response {
 
         if ($demandeAdoption->getAnnonceur()->getId() == $this->getUser()->getId()) {
             $demandeAdoption->setAcceptee(true);
 
             $chiens = $demandeAdoption->getChiens();
+            $idChiens = $chiens->map(function (Chien $chien) {
+                return $chien->getId();
+            });
+            $demandesAvecChiensCourant = $demandeAdoptionRepository->findDemandesAvecChiens($idChiens->toArray());
+
             foreach ($chiens as $chien) {
                 $chien->setAdopte(true);
-                foreach ($chien->getDemandeAdoption() as $demande){
-                    if($demande != $demandeAdoption){
+                foreach ($demandesAvecChiensCourant as $demande){
+                    if($demande->getId() != $demandeAdoption->getId()){
                         $demande->removeChien($chien);
                     }
                 }
             }
-            
+
             $em->persist($demandeAdoption);
             $pourvue = true;
 
