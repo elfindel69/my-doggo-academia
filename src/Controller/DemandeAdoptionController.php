@@ -95,7 +95,7 @@ class DemandeAdoptionController extends AbstractController
      */
     public function validation_demande(EntityManagerInterface $em, DemandeAdoption $demandeAdoption) : Response {
 
-        if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
+        if ($demandeAdoption->getAnnonceur()->getId() == $this->getUser()->getId()) {
             $demandeAdoption->setAcceptee(true);
             foreach ($demandeAdoption->getChiens() as $chien) {
                 $chien->setAdopte(true);
