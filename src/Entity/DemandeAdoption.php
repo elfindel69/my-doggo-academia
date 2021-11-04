@@ -181,4 +181,26 @@ class DemandeAdoption
 
         return $this;
     }
+
+    public function isThereUnreadMessages(Utilisateur $user): bool {
+        $bool = false;
+
+        foreach ($this->messages as $message) {
+            if (!$message->getEstLu() && $message->getDestinataire() == $user) {
+                $bool = true;
+            }
+        }
+
+        return $bool;
+    }
+
+    public function nbUnreadMessages(Utilisateur $user): int {
+        $cpt = 0;
+        foreach ($this->messages as $message) {
+            if (!$message->getEstLu() && $message->getDestinataire() == $user) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
 }
