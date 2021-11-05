@@ -7,6 +7,7 @@ use App\Entity\Annonceur;
 use App\Entity\Chien;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\RaceRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -36,9 +37,10 @@ class AnnonceController extends AbstractController
      *
      * @Route("/annonce/{id}", name="annonces_single_annonce", requirements={"id"="\d+"})
      */
-    public function details(AnnonceRepository $annonceRepository, int $id): Response
+    public function details(AnnonceRepository $annonceRepository,int $id): Response
     {
         $annonce = $annonceRepository->find($id);
+
         return $this->render('annonce/_single_annonce.html.twig', [
             'annonce' => $annonce
         ]);

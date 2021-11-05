@@ -75,7 +75,7 @@ class Chien
     /**
      * @ORM\ManyToMany(targetEntity=DemandeAdoption::class, mappedBy="chiens")
      */
-    private Collection $demandeAdoption;
+    private Collection $demandesAdoption;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="chiens")
@@ -91,14 +91,15 @@ class Chien
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="chien", orphanRemoval=true, cascade={"persist"})
      * @Assert\Valid()
      */
-    private $photos;
+    private Collection $photos;
 
 
     public function __construct()
     {
         $this->races = new ArrayCollection();
         $this->photos = new ArrayCollection();
-        $this->demandeAdoptions = new ArrayCollection();
+        $this->demandesAdoption = new ArrayCollection();
+        $this->adopte = false;
     }
 
 
@@ -243,15 +244,15 @@ class Chien
     /**
      * @return Collection|DemandeAdoption[]
      */
-    public function getDemandeAdoptions(): Collection
+    public function getDemandesAdoption(): Collection
     {
-        return $this->demandeAdoptions;
+        return $this->demandesAdoption;
     }
 
     public function addDemandeAdoption(DemandeAdoption $demandeAdoption): self
     {
-        if (!$this->demandeAdoptions->contains($demandeAdoption)) {
-            $this->demandeAdoptions[] = $demandeAdoption;
+        if (!$this->demandesAdoption->contains($demandeAdoption)) {
+            $this->demandesAdoption[] = $demandeAdoption;
             $demandeAdoption->addChien($this);
         }
 
@@ -260,7 +261,7 @@ class Chien
 
     public function removeDemandeAdoption(DemandeAdoption $demandeAdoption): self
     {
-        if ($this->demandeAdoptions->removeElement($demandeAdoption)) {
+        if ($this->demandesAdoption->removeElement($demandeAdoption)) {
             $demandeAdoption->removeChien($this);
         }
 

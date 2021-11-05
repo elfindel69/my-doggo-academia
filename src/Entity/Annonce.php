@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use App\Repository\RaceRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -216,6 +217,16 @@ class Annonce
             }
         }
         return $cpt;
+    }
+
+    public function getRacesByAnnonce(){
+        $ret = [];
+        foreach ($this->chiens as $chien) {
+            foreach ($chien->getRaces() as $race) {
+                $ret[$race->getId()] = $race;
+            }
+        }
+        return $ret;
     }
 
 }
