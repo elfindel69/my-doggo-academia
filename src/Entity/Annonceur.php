@@ -95,7 +95,8 @@ class Annonceur extends Utilisateur
         $cpt = 0;
 
         foreach ($this->getAnnonces() as $annonce) {
-            if ($annonce->getAnnonceur() && $annonce->getAPourvoir() == true) {
+
+            if ($annonce->getAnnonceur() && $annonce->getAPourvoir() == true && !$annonce->getChiens()->isEmpty() ) {
                 $cpt++;
             }
         }
