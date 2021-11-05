@@ -101,6 +101,8 @@ class AnnonceRepository extends ServiceEntityRepository
             ->leftJoin("c.races", "r")
             ->andWhere('a.aPourvoir = :aPourvoir')
             ->setParameter('aPourvoir', true)
+            ->andWhere('c.adopte = :adopte')
+            ->setParameter('adopte', false)
             ->getQuery()
             ->getResult();
     }
