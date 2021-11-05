@@ -87,7 +87,7 @@ class DemandeAdoptionController extends AbstractController
     {
         $annonceur = $this->getUser();
 
-        if ($demandeAdoption->getAnnonceur()->getId() == $demandeAdoption->getAnnonceur()->getId()) {
+        if ($demandeAdoption->getAnnonceur()->getId() == $annonceur->getId()) {
             $em->remove($demandeAdoption);
             $em->flush();
         }
