@@ -21,46 +21,52 @@ class DemandeAdoptionController extends AbstractController
     /**
      * @Route("/demandeAdoption/{id}/new", name="demande_adoption", requirements={"id"="\d+"})
      */
-    public function adoption_request(Request $request, EntityManagerInterface $em, int $id, AnnonceRepository $annonceRepository): Response
+    public function adoption_request(Request $request, EntityManagerInterface $em, int $id, AnnonceRepository $annonceRepository,
+                                     DemandeAdoptionRepository $demandeAdoptionRepository): Response
     {
-        $demandeAdoption = new DemandeAdoption();
-        $message = new Message();
-        $demandeAdoption->addMessage($message);
         $annonce = $annonceRepository->find($id);
+        $demandeAdoption = $demandeAdoptionRepository->checkDemandeAdoption($annonce,$this->getUser());
 
-        $form = $this->createForm(DemandeAdoptionType::class, $demandeAdoption, [
-            'method' => 'post',
-            'id' => $id
-        ]);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $demandeAdoption
-                ->setAcceptee(false)
-                ->setAdoptant($this->getUser())
-                ->setAnnonce($annonce)
-                ->setAnnonceur($annonce->getAnnonceur())
-                ->setDateCreation(new DateTime());
-
-
-            $message
-                ->setDateEnvoi(new DateTime())
-                ->setEstLu(false)
-                ->setExpediteur($demandeAdoption->getAdoptant())
-                ->setDestinataire($demandeAdoption->getAnnonceur());
-
+        if(empty($demandeAdoption)){
+            $demandeAdoption = new DemandeAdoption();
+            $message = new Message();
             $demandeAdoption->addMessage($message);
 
-            $em->persist($demandeAdoption);
-            $em->flush();
+            $form = $this->createForm(DemandeAdoptionType::class, $demandeAdoption, [
+                'method' => 'post',
+                'id' => $id
+            ]);
 
-            return $this->redirectToRoute('single_demande_adoption', ['id' => $demandeAdoption->getId()]);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $demandeAdoption
+                    ->setAcceptee(false)
+                    ->setAdoptant($this->getUser())
+                    ->setAnnonce($annonce)
+                    ->setAnnonceur($annonce->getAnnonceur())
+                    ->setDateCreation(new DateTime());
+
+
+                $message
+                    ->setDateEnvoi(new DateTime())
+                    ->setEstLu(false)
+                    ->setExpediteur($demandeAdoption->getAdoptant())
+                    ->setDestinataire($demandeAdoption->getAnnonceur());
+
+                $demandeAdoption->addMessage($message);
+
+                $em->persist($demandeAdoption);
+                $em->flush();
+
+                return $this->redirectToRoute('single_demande_adoption', ['id' => $demandeAdoption->getId()]);
+            }
+            return $this->render('demande_adoption/form_demande.twig', [
+                'form' => $form->createView()
+            ]);
+        }else{
+            return $this->redirectToRoute('annonces_annonces');
         }
-
-        return $this->render('demande_adoption/form_demande.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**

@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Annonce;
 use App\Entity\DemandeAdoption;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method DemandeAdoption|null find($id, $lockMode = null, $lockVersion = null)
@@ -61,4 +63,16 @@ class DemandeAdoptionRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function checkDemandeAdoption(?Annonce $annonce, ?UserInterface $user)
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.annonce','an')
+            ->innerJoin('d.adoptant','ad')
+            ->andWhere('an.id = :annonce_id')
+            ->setParameter('annonce_id', $annonce->getId())
+            ->andWhere('ad.id = :adoptant_id')
+            ->setParameter('adoptant_id', $user->getId())
+            ->getQuery()
+            ->getResult();
+    }
 }
