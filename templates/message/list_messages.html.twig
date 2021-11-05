@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Mes messages</h2>
-    <div class="container d-flex flex">
-        <div class="row d-flex flex">
+    <div class="text-center my-4"><h2>Mes messages</h2></div>
+    <div class="container d-flex justify-content-center" style="min-height: 50vh;">
+        <div class="row d-flex">
             {% for message in messages %}
                 {% include 'message/single_message.html.twig' with {message: message } only %}
             {% endfor %}
@@ -11,7 +11,7 @@
         </div>
 
     </div>
-    <div class="text-center">
+    <div class="text-center my-4">
         <a href="{{ path("envoi_message",{id:id}) }}" class="btn btn-primary">Envoyer un message</a>
     </div>
 
