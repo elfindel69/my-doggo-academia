@@ -11,7 +11,7 @@
 
     <div class="card-body">
         <h5 class="card-title">{{ annonce.titre }}</h5>
-        <p class="text-center"> Il y a <strong> {{ annonce.chiens|length }} </strong> chien(s) disponible(s) !</p>
+        <p class="text-center"> Il y a <strong> {{ annonce.getNbChiensDispo() }} </strong> chien(s) disponible(s) !</p>
         <p class="card-text">{{ annonce.description }}</p>
         <p class="card-text">Races des chiens : </p>
         <ul class="">
