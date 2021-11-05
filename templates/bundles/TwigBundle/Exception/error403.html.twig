@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+
+{% endblock %}
+{% block body %}
+    <h1 class="text-center error">Accès refusé</h1>
+    <br>
+    <p class="text-center">
+        Vous n'avez pas les droits pour accéder à cette page.<br>
+        Merci de vérifier votre saisie ou de <a href="{{ path('default_index') }}">retourner à l'accueil</a>.
+    </p>
+{% endblock %}

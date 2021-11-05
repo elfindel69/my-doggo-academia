@@ -1,0 +1,14 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block head %}
+
+{% endblock %}
+{% block body %}
+    <h1 class="text-center">Page non trouvée</h1>
+    <br>
+    <p class="text-center">
+       La page demandée n'existe pas.<br>
+        Merci de vérifier votre saisie ou de <a href="{{ path('default_index') }}">retourner à l'accueil</a>.
+    </p>
+{% endblock %}
