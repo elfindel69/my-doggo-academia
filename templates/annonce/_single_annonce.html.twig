@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <article>
+    <article class="mt-5">
 
         <div class="container">
-            <header class="row my-4">
+            <header class="row mt-5 my-4">
                 <div class="col-4"></div>
                 <div class="col-4 text-center"><h2>{{ annonce.titre }}</h2></div>
                 <div class="col-4 text-end"><a href="{{ path("demandeAdoption",{id:annonce.id}) }}"
