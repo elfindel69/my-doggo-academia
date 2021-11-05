@@ -29,6 +29,7 @@ class ChienController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $chien->setAdopte(false);
             $em->persist($chien);
             $em->flush();
 

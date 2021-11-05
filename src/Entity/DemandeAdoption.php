@@ -33,7 +33,7 @@ class DemandeAdoption
     private ?Adoptant $adoptant;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandeAdoption")
+     * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandesAdoption")
      */
     private Collection $chiens;
 
@@ -62,6 +62,7 @@ class DemandeAdoption
     {
         $this->chiens = new ArrayCollection();
         $this->messages = new ArrayCollection();
+
     }
 
     public function getId(): ?int

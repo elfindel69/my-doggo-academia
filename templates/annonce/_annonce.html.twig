@@ -15,11 +15,10 @@
         <p class="card-text">{{ annonce.description }}</p>
         <p class="card-text">Races des chiens : </p>
         <ul class="">
-            {% for chien in annonce.chiens %}
-                {% for race in chien.races %}
-                    <li>{{ race.nom }}</li>
-                {% endfor %}
+            {% for race in annonce.getRacesByAnnonce() %}
+                <li>{{ race.nom }}</li>
             {% endfor %}
+
         </ul>
         <a href="{{ path('annonces_single_annonce',{id:annonce.id}) }}" class="btn btn-primary">Voir +</a>
     </div>
