@@ -1,16 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-center mt-3">
-            {% include 'annonceur/_annonceur.html.twig' with { annonceur: annonceur } only %}
+
+    <div class="container-fluid mt-3">
+
+        <div>
+
+            <div class="row">
+
+                <div class="col-sm-6 col-2 fixed-top top-50 start-0">
+                    {% include 'annonceur/_annonceur_no_col.html.twig' with { annonceur: annonceur } only %}
+                </div>
+
+                <div class="col-sm-6 offset-sm-6 two">
+                    <h2>Toutes les annonces de {{ annonceur.nom }} : </h2>
+                    <div class="row d-flex align-items-center justify-content-center">
+                        {% for annonce in annonces %}
+                            {% include 'annonce/_annonce_no_col.html.twig' with {annonce: annonce } only %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        <br>
-        <h2>Toutes les annonces de {{ annonceur.nom }} : </h2>
-        <div class="d-flex row">
-            {% for annonce in annonces %}
-                {% include 'annonce/_annonce.html.twig' with {annonce: annonce } only %}
-            {% endfor %}
-        </div>
+
     </div>
+
 {% endblock %}

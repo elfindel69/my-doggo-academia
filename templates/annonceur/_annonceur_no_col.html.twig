@@ -1,0 +1,18 @@
+<div class="card my-card-2">
+    <div class="card-body">
+        <h5 class="text-center card-title">{{ annonceur.nom }}</h5><br>
+        <ul style="list-style-type: none">
+            <li class="list-group-item">Email : {{ annonceur.email }}</li>
+            <li class="list-group-item">Adresse
+                : {{ annonceur.adresse }} {{ annonceur.ville.codePostal }} {{ annonceur.ville.nom }}</li>
+            <li class="list-group-item">Telephone : {{ annonceur.telephone }}</li>
+        </ul>
+        <br>
+        <div class="row my-row">
+            <p class="col-6 text-center">Nombre d'annonces à pourvoir :
+                <strong>{{ annonceur.getCountAnnoncesAPourvoir }}</strong></p>
+            <p class="col-6 text-center">Nombre d'annonces pourvues :
+                <strong>{{ annonceur.getCountAnnoncesPourvues }}</strong></p>
+        </div>
+    </div>
+</div>

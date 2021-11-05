@@ -38,11 +38,13 @@
             {% endfor %}
         </p>
     </div>
-    {% if chien.adopte %}
-        <p class="text-center">Adopté</p>
-    {% else %}
-        {% if app.user == chien.annonce.annonceur and is_granted('ROLE_ANNONCEUR') %}
-            <a href="{{ path("chien_adopter",{id:chien.id}) }}" class="btn btn-primary btn-lg">Marquer comme adopté</a>
+    <div class="text-center mb-3">
+        {% if chien.adopte %}
+            <p class="text-center">Adopté</p>
+        {% else %}
+            {% if app.user == chien.annonce.annonceur and is_granted('ROLE_ANNONCEUR') %}
+                <button href="{{ path("chien_adopter",{id:chien.id}) }}" class="btn btn-outline-warning">Marquer ce chien comme adopté</button>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
 </div>
