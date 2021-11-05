@@ -30,7 +30,7 @@ class VilleFixtures extends Fixture implements DependentFixtureInterface
             for ($i = 0; $i < 10; $i++) {
                 $ville = new Ville();
                 $ville->setNom("Ville" . $i);
-                $ville->setCodePostal($i + 1000);
+                $ville->setCodePostal(strval($i + 1000));
                 $ville->setDepartement($departement);
                 $manager->persist($ville);
             }

@@ -23,7 +23,8 @@ class DemandeAdoptionRepository extends ServiceEntityRepository
 
 
     /**
-     * @return DemandeAdoption
+     * @param array $idChiens
+     * @return array
      */
     public function findDemandesAvecChiens(array $idChiens): array
     {

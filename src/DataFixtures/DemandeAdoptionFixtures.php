@@ -31,7 +31,7 @@ class DemandeAdoptionFixtures extends Fixture implements DependentFixtureInterfa
         $annonces = $this->annonceRepository->findAll();
         $i = 0;
         foreach ($annonces as $annonce) {
-            if (!empty($annonce->getChiens())) {
+            if ($annonce->getChiens()) {
                 $demande1 = new DemandeAdoption();
                 $demande1->setAnnonceur($annonce->getAnnonceur());
                 $demande1->setAnnonce($annonce);
