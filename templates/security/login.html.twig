@@ -16,7 +16,7 @@
                     </div>
                 {% endif %}
 
-                <h1 class="h3 mb-5 font-weight-normal text-center">Connexion</h1>
+                <h3 class="mb-5 font-weight-normal text-center">Connexion</h3>
 
                 <div class="form-floating mb-3">
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
@@ -46,6 +46,12 @@
                     <button class="btn btn-lg btn-primary my-4" type="submit"> Se Connecter</button>
                 </div>
             </form>
+
+            <hr>
+            
+            <div class="text-center">
+                <a class="btn btn-lg btn-success" href="{{path('adoptant_login')}}">Inscription</a>
+            </div>
         </div>
     </div>
 {% endblock %}
