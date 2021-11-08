@@ -3,12 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\RaceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=RaceRepository::class)
+ * @ApiResource(
+ *      collectionOperations={"get"},
+ *      itemOperations={"get"}
+ * )
  */
 class Race
 {
@@ -26,6 +32,9 @@ class Race
 
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, mappedBy="races")
+     * @ApiSubResource(
+     *      maxDepth=1
+     * )
      */
     private Collection $chiens;
 
