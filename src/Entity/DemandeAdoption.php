@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\DemandeAdoptionRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DemandeAdoptionRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:demande", "read:utilisateur", "read:chien"}}
+ * )
  */
 class DemandeAdoption
 {
@@ -17,12 +22,14 @@ class DemandeAdoption
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:demande"})
      */
     private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonceur::class, inversedBy="demandeAdoptions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read:demande"})
      */
     private ?Annonceur $annonceur;
 
@@ -34,17 +41,20 @@ class DemandeAdoption
 
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, inversedBy="demandesAdoption")
+     * @Groups({"read:demande"})
      */
     private Collection $chiens;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:demande"})
      */
     private ?bool $acceptee;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="demandesAdoption")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read:demande"})
      */
     private ?Annonce $annonce;
 

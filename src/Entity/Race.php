@@ -3,12 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\RaceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=RaceRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:race"}}
+ * )
  */
 class Race
 {
@@ -16,11 +21,13 @@ class Race
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:race"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:race"})
      */
     private ?string $nom;
 
