@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceurRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceurRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:utilisateur"}}
+ * )
  */
 class Annonceur extends Utilisateur
 {

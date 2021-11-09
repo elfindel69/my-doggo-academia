@@ -12,7 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ChienRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:chien"}}
+ * )
  */
 class Chien
 {
@@ -20,52 +22,62 @@ class Chien
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:chien"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:chien"})
      */
     private ?string $nom;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read:chien"})
      */
     private ?int $age;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"read:chien"})
      */
     private ?float $taille;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"read:chien"})
      */
     private ?float $poids;
 
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:chien"})
      */
     private ?string $description;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"read:chien"})
      */
     private ?bool $lof;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:chien"})
      */
     private ?bool $sociable;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"read:chien"})
      */
     private ?string $antecedents;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:chien"})
      */
     private ?bool $adopte;
 
@@ -87,6 +99,7 @@ class Chien
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"read:chien"})
      */
     private ?string $sexe;
 

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
 use App\Repository\RaceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:annonce", "read:chien"}}
+ * )
  */
 class Annonce
 {
@@ -19,37 +24,44 @@ class Annonce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:annonce"})
      */
     private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:annonce"})
      */
     private ?string $titre;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:annonce"})
      */
     private ?string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce", cascade={"persist"}, orphanRemoval=true)
      * @Assert\Valid()
+     * @Groups({"read:annonce"})
      */
     private Collection $chiens;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read:annonce"})
      */
     private ?DateTimeInterface $dateCreation;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read:annonce"})
      */
     private ?DateTimeInterface $dateMaJ;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:annonce"})
      */
     private ?bool $aPourvoir;
 

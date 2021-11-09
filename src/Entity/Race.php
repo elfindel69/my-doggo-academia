@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RaceRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,8 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=RaceRepository::class)
  * @ApiResource(
- *      collectionOperations={"get"},
- *      itemOperations={"get"}
+ *      normalizationContext={"groups" = {"read:race"}}
  * )
  */
 class Race
@@ -22,19 +21,18 @@ class Race
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:race"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:race"})
      */
     private ?string $nom;
 
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, mappedBy="races")
-     * @ApiSubResource(
-     *      maxDepth=1
-     * )
      */
     private Collection $chiens;
 

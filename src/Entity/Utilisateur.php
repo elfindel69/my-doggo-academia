@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +19,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({ "annonceur" = "Annonceur", "adoptant" = "Adoptant"})
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte créé avec cet email, veuillez vous connecter")
- *
+ * @ApiResource(
+ *      normalizationContext={"groups" = {"read:utilisateur"}}
+ * )
  */
 abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -25,6 +29,7 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:utilisateur"})
      */
     protected ?int $id;
 
@@ -72,9 +77,10 @@ abstract class Utilisateur implements UserInterface, PasswordAuthenticatedUserIn
      * @var string|null
      * @Assert\Length(max = 255, min = 8, minMessage = "Le nom de la photo doit faire au moins {{ limit }} caractères", maxMessage="Le nom de la photo doit faire maximum {{ limit }} caractères")
      */
-    private ?string $plainPassword;
+    private ?string $plainPassword = null;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:utilisateur"})
      */
     private ?string $nom;
 
